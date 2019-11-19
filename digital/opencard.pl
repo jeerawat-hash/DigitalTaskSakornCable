@@ -22,4 +22,4 @@
   }
 
 
-# perl /var/www/html/schedue/digital/cutcard.pl 9980003000000773
+# perl /var/www/html/schedue/digital/opencard.pl 9980003000000773

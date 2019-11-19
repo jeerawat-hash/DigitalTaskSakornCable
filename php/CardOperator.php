@@ -81,12 +81,24 @@ error_reporting(0);
 	}else
 	if ( isset($_POST["cutcard"]) ) {
 		
-		echo shell_exec(" ls -la ");
+		$string  = " perl /var/www/html/schedue/digital/cutcard.pl ".$_POST["card"]." ";
+
+		$exe =  shell_exec( $string );
+
+		if ($exe) {
+			echo "CUT ".$_POST["card"];
+		}
 
 	}else	
 	if ( isset($_POST["connectcard"]) ) {
 		
-		echo shell_exec(" ls -la ");
+		$string  = " perl /var/www/html/schedue/digital/opencard.pl ".$_POST["card"]." ";
+
+		$exe =  shell_exec( $string );
+
+		if ($exe) {
+			echo "Connect ".$_POST["card"];
+		}
 
 	}else{
 
