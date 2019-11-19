@@ -8,7 +8,7 @@
 <body>
 
 	<center>ส่งข้อความ</center>
-	<form method="post" action="#" name="messagecard">
+	<form method="post" action="#" >
 		
 
 			<label>การ์ด</label>
@@ -22,13 +22,13 @@
 			 
 
 
-		<input type="submit" >
+		<input type="submit" value="1" name="messagecard" >
 	</form>
 
 <br>
 
 	<center>ตัดการ์ด</center>
-	<form method="post"  action="#"  name="cutcard">
+	<form method="post"  action="#"  >
 		
 
 			<label>การ์ด</label>
@@ -37,13 +37,13 @@
 			<input type="text" name="message"> <br>
 			    
 
-		<input type="submit" >
+		<input type="submit" name="cutcard" value="1" >
 	</form>
 
 <br>
 
 	<center>เปิดการ์ด</center>
-	<form method="post" action="#"  name="connectcard">
+	<form method="post" action="#"  >
 		
 
 			<label>การ์ด</label>
@@ -52,7 +52,7 @@
 			<input type="text" name="message"> <br>
 			    
 			    
-		<input type="submit" >
+		<input type="submit" name="connectcard" value="1" >
 	</form>
  
 </body>
