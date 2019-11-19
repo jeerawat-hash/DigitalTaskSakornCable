@@ -64,7 +64,7 @@
 
 <?php 
 error_reporting(0);
-
+	print_r($_POST);
 	
 	if ( isset($_POST["messagecard"]) ) {
 		
