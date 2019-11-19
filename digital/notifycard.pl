@@ -6,8 +6,8 @@
   # Create a request
   my $req = new HTTP::Request POST => 'http://172.168.2.2:8081/sms2_4/ca/camessageedit.do';
 
-  #my ($name) = @ARGV;
-  $name = '9980003200006591';
+  my ($name) = @ARGV;
+  #$name = '9980003200006591';
 
   $req->header('Cookie' => 'JSESSIONID=FD43E88157EE150E0C7270025AFCF18D');
 
