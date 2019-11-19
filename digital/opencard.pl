@@ -5,10 +5,12 @@
   # Create a request
   my $req = new HTTP::Request POST => 'http://172.168.2.2:8081/sms2_4/ca/avitcaaccredit.do';
 
+  my ($card,$message) = @ARGV;
+
   $req->header('Cookie' => 'JSESSIONID=FD43E88157EE150E0C7270025AFCF18D');
 
   $req->content_type('application/x-www-form-urlencoded');
-  $req->content('accreditType=BUYPRO_0&duration=&message=&operate=accredit&position=0&productIds=81&scCode=9980003200006591&title=');
+  $req->content('accreditType=BUYPRO_0&duration=&message=&operate=accredit&position=0&productIds=81&scCode='.$card.'&title=');
 
   # Pass request to the user agent and get a response back
   my $res = $ua->request($req);
@@ -20,4 +22,4 @@
   }
 
 
-
+# perl /var/www/html/schedue/digital/cutcard.pl 9980003000000773
