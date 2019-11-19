@@ -68,17 +68,19 @@ error_reporting(0);
 	
 	if ( isset($_POST["messagecard"]) ) {
 		
-		echo "message";
+		echo shell_exec(" ls -la ");
+
+
 
 	}else
 	if ( isset($_POST["cutcard"]) ) {
 		
-		echo "cutcard";
+		echo shell_exec(" ls -la ");
 
 	}else	
 	if ( isset($_POST["connectcard"]) ) {
 		
-		echo "connectcard";
+		echo shell_exec(" ls -la ");
 
 	}else{
 
