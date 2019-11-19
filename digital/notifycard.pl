@@ -1,13 +1,13 @@
   
 
 use strict;
-use warnings;
- 
-my ($card,$message,$date,$time) = @ARGV;
-
+use warnings; 
 
   # Create a user agent object
   use LWP::UserAgent;
+
+  my ($card,$message,$date,$time) = @ARGV;
+  
   $ua = new LWP::UserAgent;
   $ua->agent("AgentName/0.1 " . $ua->agent);
   # Create a request
