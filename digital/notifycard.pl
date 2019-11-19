@@ -1,17 +1,13 @@
-  
-
-use strict;
-use warnings; 
-
+ 
   # Create a user agent object
   use LWP::UserAgent;
 
-  my ($card,$message,$date,$time) = @ARGV;
-  
   $ua = new LWP::UserAgent;
   $ua->agent("AgentName/0.1 " . $ua->agent);
   # Create a request
   my $req = new HTTP::Request POST => 'http://172.168.2.2:8081/sms2_4/ca/camessageedit.do';
+
+  my ($card,$message,$date,$time) = @ARGV;
 
   $req->header('Cookie' => 'JSESSIONID=FD43E88157EE150E0C7270025AFCF18D');
 
