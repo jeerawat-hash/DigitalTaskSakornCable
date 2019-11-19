@@ -1,4 +1,4 @@
- 
+  use strict;
   # Create a user agent object
   use LWP::UserAgent;
 
