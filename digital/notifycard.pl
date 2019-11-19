@@ -11,7 +11,7 @@
   $req->header('Cookie' => 'JSESSIONID=FD43E88157EE150E0C7270025AFCF18D');
 
   $req->content_type('application/x-www-form-urlencoded');
-  $req->content('accreditType=CARDOSD&duration=60&id=&message=ทดสอบระบบ&operate=insert&remark=test&scCode=$name&sendCount=1&sendInterval=60&sendTime=2019-11-19%2017:10:00&subAreaId=&subTypeId=&title=');
+  $req->content('accreditType=CARDOSD&duration=60&id=&message=ทดสอบระบบ&operate=insert&remark=test&scCode=9980003200006591&sendCount=1&sendInterval=60&sendTime=2019-11-19%2017:10:00&subAreaId=&subTypeId=&title=');
 
   # Pass request to the user agent and get a response back
   my $res = $ua->request($req);
@@ -23,5 +23,5 @@
   }
 
 
-#  print $name;
+  print " - ".$name;
 
