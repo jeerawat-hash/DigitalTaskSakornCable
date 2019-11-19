@@ -67,8 +67,14 @@ error_reporting(0);
 	print_r($_POST);
 	
 	if ( isset($_POST["messagecard"]) ) {
-		
-		echo shell_exec(" ls -la ");
+			
+		$string  = " perl /var/www/html/schedue/digital/notifycard.pl ".$_POST["card"]." ".$_POST["message"]." ".$_POST["date"]." ".$_POST["time"]." ";
+
+		$exe =  shell_exec( $string );
+
+		if ($exe) {
+			echo "Send Message ".$_POST["card"];
+		}
 
 
 
