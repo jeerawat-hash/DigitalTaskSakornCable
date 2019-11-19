@@ -1,7 +1,5 @@
 
-use strict;
-use warnings;
- 
+
 my ($name, $number,$other) = @ARGV;
  
 if (not defined $name) {
