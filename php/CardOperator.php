@@ -77,7 +77,6 @@ error_reporting(0);
 		}
 
 
-
 	}else
 	if ( isset($_POST["cutcard"]) ) {
 		
