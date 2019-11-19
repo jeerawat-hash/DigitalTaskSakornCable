@@ -4,10 +4,24 @@
 	$token = "xwIy9YnB1ByZfiFz9dS4Pe82hLw9o5nRnQdmqnXlBBZ";
 
 
-	$message = "เปิดการ์ด\nหมายเลข : 9980003200006591 \n สมาชิก \nสำเร็จ";
+
+	$A = 0;
+
+	$Status = ($A == 1) ? "เปิด" : "ปิด" ;
+
+ 
+
+
+
+
+
+
+	$message = $Status." \n หมายเลข : 9980003200006591 \n สถานะ : สำเร็จ";
 
 	
 	notify($message,$token);
+
+ 
 
 
 
