@@ -13,9 +13,12 @@
 
 
 
+	$message_notify = "ดำเนินการการ์ด กุญแจ Sahamit \n";
+
+
 	while ( $result = mssql_fetch_array($query_str) ) {
 		
-
+		$status_auto = "";
 		
 		if ( $result["IsOpenCard"] == "1" ) {
 			
@@ -24,6 +27,7 @@
 
 			$exe =  shell_exec( $string );
 
+			$status_auto = "ต่อ";
 
 		}else
 		if ( $result["IsOpenCard"] == "0" ) {
@@ -32,21 +36,25 @@
 			$string  = " perl /var/www/html/schedue/digital/cutcard.pl ".$result["CardNO"]." ";
 
 			$exe =  shell_exec( $string );
- 
+ 			
+ 			$status_auto = "ตัด";
 		}
  
 
 		mssql_query(" update Sahamit.dbo.CustomerCardLog set IsUpdateCASAlready = 1 where CardNO = '".$result["CardNO"]."' ");
 
-
+		$message_notify .= $result["CardNO"]." ".$status_auto."\n";
 
 	}
  
 
 	#$message = $Status."การ์ด \n หมายเลข : 9980003200006591 \n สถานะ : สำเร็จ";
 
-	
-	#notify($message,$token);
+	if ( mssql_num_rows($query_str) != 0 ) {
+		
+		notify($message_notify,$token);
+
+	}
 
  
 
