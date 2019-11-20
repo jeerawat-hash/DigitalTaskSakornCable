@@ -9,7 +9,7 @@
 
 	 
 
-	$query_str = mssql_query(" select top 100 'Sakorp' as DB,RowOrder,CardNO,IsOpenCard,IsUpdateCASAlready from Sakorp.dbo.CustomerCardLog where IsUpdateCASAlready = 0 order by RowOrder asc ");
+	$query_str = mssql_query(" select top 50 'Sakorp' as DB,RowOrder,CardNO,IsOpenCard,IsUpdateCASAlready from Sakorp.dbo.CustomerCardLog where IsUpdateCASAlready = 0 order by RowOrder asc ");
 
 
 
