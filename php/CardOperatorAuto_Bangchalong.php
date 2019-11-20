@@ -9,13 +9,14 @@
 
 	 
 
-	$query_str = mssql_query(" select top 100 'Bangchalong' as DB,RowOrder,CardNO,IsOpenCard,IsUpdateCASAlready from Bangchalong.dbo.CustomerCardLog where IsUpdateCASAlready = 0 order by RowOrder asc ");
+	$query_str = mssql_query(" select top 50 'Bangchalong' as DB,RowOrder,CardNO,IsOpenCard,IsUpdateCASAlready from Bangchalong.dbo.CustomerCardLog where IsUpdateCASAlready = 0 order by RowOrder asc ");
 
+	$message_notify = "ดำเนินการการ์ด\n";
 
 
 	while ( $result = mssql_fetch_array($query_str) ) {
 		
-
+		$status_auto = "";
 		
 		if ( $result["IsOpenCard"] == "1" ) {
 			
@@ -24,6 +25,7 @@
 
 			$exe =  shell_exec( $string );
 
+			$status_auto = "ต่อ";
 
 		}else
 		if ( $result["IsOpenCard"] == "0" ) {
@@ -32,13 +34,14 @@
 			$string  = " perl /var/www/html/schedue/digital/cutcard.pl ".$result["CardNO"]." ";
 
 			$exe =  shell_exec( $string );
- 
+ 			
+ 			$status_auto = "ตัด";
 		}
  
 
 		mssql_query(" update Bangchalong.dbo.CustomerCardLog set IsUpdateCASAlready = 1 where CardNO = '".$result["CardNO"]."' ");
 
-
+		$message_notify .= $result["CardNO"]." ".$status_auto."\n";
 
 	}
  
@@ -46,7 +49,7 @@
 	#$message = $Status."การ์ด \n หมายเลข : 9980003200006591 \n สถานะ : สำเร็จ";
 
 	
-	#notify($message,$token);
+	notify($message_notify,$token);
 
  
 
