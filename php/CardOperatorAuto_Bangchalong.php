@@ -11,7 +11,7 @@
 
 	$query_str = mssql_query(" select top 50 'Bangchalong' as DB,RowOrder,CardNO,IsOpenCard,IsUpdateCASAlready from Bangchalong.dbo.CustomerCardLog where IsUpdateCASAlready = 0 order by RowOrder asc ");
 
-	$message_notify = "ดำเนินการการ์ด\n";
+	$message_notify = "ดำเนินการการ์ด กุญแจ Bangchalong \n";
 
 
 	while ( $result = mssql_fetch_array($query_str) ) {
@@ -48,8 +48,13 @@
 
 	#$message = $Status."การ์ด \n หมายเลข : 9980003200006591 \n สถานะ : สำเร็จ";
 
+	if ( mssql_num_rows($query_str) != 0 ) {
+		
+		notify($message_notify,$token);
+
+	}
 	
-	notify($message_notify,$token);
+	
 
  
 
