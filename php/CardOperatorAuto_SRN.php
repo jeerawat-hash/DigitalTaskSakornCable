@@ -9,7 +9,7 @@
 
 	 
 
-	$query_str = mssql_query(" select top 50 'SRN' as DB,RowOrder,CardNO,IsOpenCard,IsUpdateCASAlready from SRN.dbo.CustomerCardLog where IsUpdateCASAlready = 0 order by RowOrder asc ");
+	$query_str = mssql_query(" select top 50 'SRN' as DB,UserID,RowOrder,CardNO,IsOpenCard,IsUpdateCASAlready from SRN.dbo.CustomerCardLog where IsUpdateCASAlready = 0 order by RowOrder asc ");
 
 
 
@@ -43,7 +43,7 @@
 
 		mssql_query(" update SRN.dbo.CustomerCardLog set IsUpdateCASAlready = 1 where CardNO = '".$result["CardNO"]."' ");
 
-		$message_notify .= $result["CardNO"]." ".$status_auto."\n";
+		$message_notify .= $result["CardNO"]." ".$result["UserID"]." ".$status_auto."\n";
 
 	}
  
