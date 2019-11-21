@@ -9,7 +9,7 @@
 
 	 
 
-	$query_str = mssql_query(" select top 20 'CSCable' as DB,UserID,RowOrder,CardNO,IsOpenCard,IsUpdateCASAlready from CSCable.dbo.CustomerCardLog where IsUpdateCASAlready = 0 order by RowOrder asc ");
+	$query_str = mssql_query(" select top 10 'CSCable' as DB,UserID,RowOrder,CardNO,IsOpenCard,IsUpdateCASAlready from CSCable.dbo.CustomerCardLog where IsUpdateCASAlready = 0 order by RowOrder asc ");
 
 
 
@@ -45,7 +45,7 @@
 
 		$message_notify .= $result["CardNO"]." ".$result["UserID"]." ".$status_auto."\n";
 
-		sleep(2);
+		sleep(5);
 	}
  
 
