@@ -9,7 +9,7 @@
 
 	 
 
-	$query_str = mssql_query(" select top 50 'CSCable' as DB,UserID,RowOrder,CardNO,IsOpenCard,IsUpdateCASAlready from CSCable.dbo.CustomerCardLog where IsUpdateCASAlready = 0 order by RowOrder asc ");
+	$query_str = mssql_query(" select top 20 'CSCable' as DB,UserID,RowOrder,CardNO,IsOpenCard,IsUpdateCASAlready from CSCable.dbo.CustomerCardLog where IsUpdateCASAlready = 0 order by RowOrder asc ");
 
 
 

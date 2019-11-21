@@ -9,7 +9,7 @@
 
 	 
 
-	$query_str = mssql_query(" select top 50 'Sahamit' as DB,UserID,RowOrder,CardNO,IsOpenCard,IsUpdateCASAlready from Sahamit.dbo.CustomerCardLog where IsUpdateCASAlready = 0 order by RowOrder asc ");
+	$query_str = mssql_query(" select top 20 'Sahamit' as DB,UserID,RowOrder,CardNO,IsOpenCard,IsUpdateCASAlready from Sahamit.dbo.CustomerCardLog where IsUpdateCASAlready = 0 order by RowOrder asc ");
 
 
 

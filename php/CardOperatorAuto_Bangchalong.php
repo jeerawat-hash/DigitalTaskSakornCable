@@ -9,7 +9,7 @@
 
 	 
 
-	$query_str = mssql_query(" select top 50 'Bangchalong' as DB,UserID,RowOrder,CardNO,IsOpenCard,IsUpdateCASAlready from Bangchalong.dbo.CustomerCardLog where IsUpdateCASAlready = 0 order by RowOrder asc ");
+	$query_str = mssql_query(" select top 20 'Bangchalong' as DB,UserID,RowOrder,CardNO,IsOpenCard,IsUpdateCASAlready from Bangchalong.dbo.CustomerCardLog where IsUpdateCASAlready = 0 order by RowOrder asc ");
 
 	$message_notify = "ดำเนินการการ์ด กุญแจ Bangchalong \n";
 
