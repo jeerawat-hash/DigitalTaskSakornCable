@@ -52,7 +52,6 @@ and CONVERT(date,InvoiceDate) not in ( select WriteDate from [LineBot].[dbo].[SM
     while ( $resultOverdue = mssql_fetch_array($queryOndue) ) {
   	
 
-
     	$cardno = mssql_fetch_array(mssql_query(" 
 select top 1   a.cardno,b.CustomerID ,c.CustomerName ,  MAX(b.startdate) as startdate 
 from ".$resultOverdue["DB"].".dbo.customercardlog  a  left outer join ".$resultOverdue["DB"].".dbo.CustomerCableType b on a.CardNO = b.CardID 
@@ -61,10 +60,9 @@ where b.CustomerID = '".$resultOverdue["CustomerID"]."'
 GROUP BY  a.cardno,b.CustomerID ,c.CustomerName
  ORDER BY  startdate  desc "));
 
-  		mssql_query(" 
-  		INSERT INTO [LineBot].[dbo].[SMS_Digital_Overdue]
-           ([CardNO]
-           ,[DB]
+  		mssql_query(" INSERT INTO [LineBot].[dbo].[SMS_Digital_Overdue]
+           ([DB]
+           ,[CardNO]
            ,[CustomerID]
            ,[PayCode]
            ,[WriteDate]
@@ -74,9 +72,8 @@ GROUP BY  a.cardno,b.CustomerID ,c.CustomerName
            ,'".$resultOverdue["DB"]."'
            ,'".$resultOverdue["CustomerID"]."'
            ,'".$resultOverdue["PayCode"]."'
-           ,'".date("Y-m-d")."'
-           ,'0')
-            ");  	
+           ,'".date("Y-m-d")."' 
+           ,'0') ");  	
  
     }
 
