@@ -49,7 +49,7 @@ where CustomerID not in ( select CustomerID from [LineBot].[dbo].[SMS_Digital_Ov
 and CONVERT(date,InvoiceDate) not in ( select WriteDate from [LineBot].[dbo].[SMS_Digital_Overdue] )
   ");
 
-    while ( $resultOverdue = mssql_fetch_array($queryOndue) ) {
+    while ( $resultOverdue = mssql_fetch_array($queryOverdue) ) {
   	
 
     	$cardno = mssql_fetch_array(mssql_query(" 
