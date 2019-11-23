@@ -68,8 +68,8 @@ GROUP BY  a.cardno,b.CustomerID ,c.CustomerName
            ,[WriteDate]
            ,[Status_Send])
      VALUES
-           ('".$cardno["cardno"]."'
-           ,'".$resultOverdue["DB"]."'
+           ('".$cardno["DB"]."'
+           ,'".$resultOverdue["CardNO"]."'
            ,'".$resultOverdue["CustomerID"]."'
            ,'".$resultOverdue["PayCode"]."'
            ,'".date("Y-m-d")."' 
