@@ -22,7 +22,7 @@
   	while ( $result = mssql_fetch_array($query) ) {
   		
   		$message = "แจ้งเตือนบิลเกินกำหนด กรุณาชำระค่าบริการก่อนถูกตัดสัญญาณ สามารถกดปุ่ม Menu ที่กล่องเพื่อปิดข้อความ";
-
+/*
   		shell_exec(" perl /var/www/html/schedue/digital/notifycard.pl ".$result["CardNO"]." ".$message." ".$result["WriteDate"]." 08:50:00 ");
 
   		sleep(5);
@@ -51,6 +51,9 @@
  
 
   		mssql_query(" update [LineBot].[dbo].[SMS_Digital_Overdue] set Status_Send = 1 where  [ID] = '".$result["ID"]."' ");
+  		*/
+
+  		
 
   	}
   
