@@ -61,15 +61,15 @@ GROUP BY  a.cardno,b.CustomerID ,c.CustomerName
  ORDER BY  startdate  desc "));
 
   		mssql_query(" INSERT INTO [LineBot].[dbo].[SMS_Digital_Overdue]
-           ([DB]
-           ,[CardNO]
+           ([CardNO]
+           ,[DB]
            ,[CustomerID]
            ,[PayCode]
            ,[WriteDate]
            ,[Status_Send])
      VALUES
-           ('".$cardno["DB"]."'
-           ,'".$resultOverdue["CardNO"]."'
+           ('".$cardno["cardno"]."'
+           ,'".$resultOverdue["DB"]."'
            ,'".$resultOverdue["CustomerID"]."'
            ,'".$resultOverdue["PayCode"]."'
            ,'".date("Y-m-d")."' 
