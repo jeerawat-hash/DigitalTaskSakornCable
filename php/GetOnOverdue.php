@@ -4,10 +4,7 @@
     $connection = mssql_connect('mssqlcon', 'sa', 'Sakorn123');
 
 
-    $queryOndue =  mssql_query(" select *  from LineBot.dbo.Ondue 
-where CustomerID not in ( select CustomerID from [LineBot].[dbo].[SMS_Digital_Ondue] ) 
-and CONVERT(date,InvoiceDate) not in ( select WriteDate from [LineBot].[dbo].[SMS_Digital_Ondue] )
-  ");
+    $queryOndue =  mssql_query(" select *  from LineBot.dbo.Ondue ");
 
     while ( $resultdue = mssql_fetch_array($queryOndue) ) {
   	
@@ -44,10 +41,7 @@ GROUP BY  a.cardno,b.CustomerID ,c.CustomerName
 
 
 
-    $queryOverdue =  mssql_query(" select *  from LineBot.dbo.Overdue 
-where CustomerID not in ( select CustomerID from [LineBot].[dbo].[SMS_Digital_Overdue] ) 
-and CONVERT(date,InvoiceDate) not in ( select WriteDate from [LineBot].[dbo].[SMS_Digital_Overdue] )
-  ");
+    $queryOverdue =  mssql_query(" select *  from LineBot.dbo.Overdue ");
 
     while ( $resultOverdue = mssql_fetch_array($queryOverdue) ) {
   	
