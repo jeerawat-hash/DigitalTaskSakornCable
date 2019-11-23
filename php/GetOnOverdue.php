@@ -3,7 +3,8 @@
 	ini_set('mssql.charset', 'UTF-8');
     $connection = mssql_connect('mssqlcon', 'sa', 'Sakorn123');
 
-
+    mssql_query("delete from [LineBot].[dbo].[SMS_Digital_Ondue] where 1 = 1");
+    
     $queryOndue =  mssql_query(" select *  from LineBot.dbo.Ondue ");
 
     while ( $resultdue = mssql_fetch_array($queryOndue) ) {
@@ -40,7 +41,7 @@ GROUP BY  a.cardno,b.CustomerID ,c.CustomerName
 
 
 
-
+    mssql_query("delete from [LineBot].[dbo].[SMS_Digital_Overdue] where 1 = 1");
     $queryOverdue =  mssql_query(" select *  from LineBot.dbo.Overdue ");
 
     while ( $resultOverdue = mssql_fetch_array($queryOverdue) ) {
