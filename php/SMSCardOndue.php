@@ -21,7 +21,7 @@
 
   	while ( $result = mssql_fetch_array($query) ) {
   		
-  		$message = "แจ้งเตือนบิลครบกำหนดกรุณาชำระค่าบริการก่อนถูกตัดสัญญาณ";
+  		$message = "แจ้งเตือนบิลครบกำหนดกรุณาชำระค่าบริการขออภัยหากชำระแล้ว";
 
   		
   		shell_exec(" perl /var/www/html/schedue/digital/notifycard.pl ".$result["CardNO"]." ".$message." ".$result["WriteDate"]." 08:50:00 ");
