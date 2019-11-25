@@ -28,7 +28,7 @@
 
   		sleep(5);
 
-  		shell_exec(" perl /var/www/html/schedue/digital/notifycard.pl ".$result["CardNO"]." ".$message." ".$result["WriteDate"]." 10:50:00 ");
+  		#shell_exec(" perl /var/www/html/schedue/digital/notifycard.pl ".$result["CardNO"]." ".$message." ".$result["WriteDate"]." 10:50:00 ");
 
   		sleep(5);
 
@@ -36,11 +36,11 @@
 
   		sleep(5);
 
-  		shell_exec(" perl /var/www/html/schedue/digital/notifycard.pl ".$result["CardNO"]." ".$message." ".$result["WriteDate"]." 15:00:00 ");
+  		#shell_exec(" perl /var/www/html/schedue/digital/notifycard.pl ".$result["CardNO"]." ".$message." ".$result["WriteDate"]." 15:00:00 ");
 
   		sleep(5);
 
-  		shell_exec(" perl /var/www/html/schedue/digital/notifycard.pl ".$result["CardNO"]." ".$message." ".$result["WriteDate"]." 17:00:00 ");
+  		#shell_exec(" perl /var/www/html/schedue/digital/notifycard.pl ".$result["CardNO"]." ".$message." ".$result["WriteDate"]." 17:00:00 ");
 
   		sleep(5);
 
@@ -48,7 +48,7 @@
 
   		sleep(5);
 
-  		shell_exec(" perl /var/www/html/schedue/digital/notifycard.pl ".$result["CardNO"]." ".$message." ".$result["WriteDate"]." 21:00:00 ");
+  		#shell_exec(" perl /var/www/html/schedue/digital/notifycard.pl ".$result["CardNO"]." ".$message." ".$result["WriteDate"]." 21:00:00 ");
  
 
   		mssql_query(" update [LineBot].[dbo].[SMS_Digital_Overdue] set Status_Send = 1 where  [ID] = '".$result["ID"]."' ");
