@@ -9,7 +9,7 @@
 
 	 
 
-	$query_str = mssql_query(" select top 10 'Flat' as DB,UserID,RowOrder,CardNO,IsOpenCard,IsUpdateCASAlready from Flat.dbo.CustomerCardLog where IsUpdateCASAlready = 0 order by RowOrder asc ");
+	$query_str = mssql_query(" select top 5 'Flat' as DB,UserID,RowOrder,CardNO,IsOpenCard,IsUpdateCASAlready from Flat.dbo.CustomerCardLog where IsUpdateCASAlready = 0 order by RowOrder asc ");
 
 
 
@@ -45,7 +45,7 @@
 
 		$message_notify .= $result["CardNO"]." ".$result["UserID"]." ".$status_auto."\n";
 
-		sleep(5);
+		sleep(10);
 	}
  
 
