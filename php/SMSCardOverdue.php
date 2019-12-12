@@ -26,25 +26,25 @@
 
   		shell_exec(" perl /var/www/html/schedue/digital/notifycard.pl ".$result["CardNO"]." ".$message." ".$result["WriteDate"]." 08:50:00 ");
 
-  		sleep(5);
+  		#sleep(5);
 
   		#shell_exec(" perl /var/www/html/schedue/digital/notifycard.pl ".$result["CardNO"]." ".$message." ".$result["WriteDate"]." 10:50:00 ");
 
-  		sleep(5);
+  		#sleep(5);
 
-  		shell_exec(" perl /var/www/html/schedue/digital/notifycard.pl ".$result["CardNO"]." ".$message." ".$result["WriteDate"]." 12:00:00 ");
+  		#shell_exec(" perl /var/www/html/schedue/digital/notifycard.pl ".$result["CardNO"]." ".$message." ".$result["WriteDate"]." 12:00:00 ");
 
-  		sleep(5);
+  		#sleep(5);
 
   		#shell_exec(" perl /var/www/html/schedue/digital/notifycard.pl ".$result["CardNO"]." ".$message." ".$result["WriteDate"]." 15:00:00 ");
 
-  		sleep(5);
+  		#sleep(5);
 
   		#shell_exec(" perl /var/www/html/schedue/digital/notifycard.pl ".$result["CardNO"]." ".$message." ".$result["WriteDate"]." 17:00:00 ");
 
-  		sleep(5);
+  		#sleep(5);
 
-  		shell_exec(" perl /var/www/html/schedue/digital/notifycard.pl ".$result["CardNO"]." ".$message." ".$result["WriteDate"]." 20:00:00 ");
+  		#shell_exec(" perl /var/www/html/schedue/digital/notifycard.pl ".$result["CardNO"]." ".$message." ".$result["WriteDate"]." 20:00:00 ");
 
   		sleep(5);
 
