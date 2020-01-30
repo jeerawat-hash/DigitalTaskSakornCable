@@ -7,6 +7,15 @@
 	$token = "xwIy9YnB1ByZfiFz9dS4Pe82hLw9o5nRnQdmqnXlBBZ";
  
 
+	$CasCheck = mssql_fetch_array(mssql_query(" SELECT  [Cas_IsNormal]
+  FROM [WebSakorn].[dbo].[SystemSakorn] "));
+
+	if ($CasCheck["Cas_IsNormal"] == "0") {
+		
+		notify('ระบบหยุดการทำงาน...เนื่องจากระบบล้มเหลว...',$token);
+
+		exit();
+	}
 	 
 
 	$query_str = mssql_query(" select top 5 'SakornNetwork' as DB,UserID,RowOrder,CardNO,IsOpenCard,IsUpdateCASAlready from SakornNetwork.dbo.CustomerCardLog where IsUpdateCASAlready = 0 order by RowOrder asc ");
