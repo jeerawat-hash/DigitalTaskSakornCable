@@ -4,6 +4,8 @@
 error_reporting(0);
 
 	$token = "xwIy9YnB1ByZfiFz9dS4Pe82hLw9o5nRnQdmqnXlBBZ";
+	$token2 = "eWEGn8hijvdIqDQCdBRUffGcMUQ3UIp7yuyQjde1g3f";
+	
 
 	/// 9980003000000039 
 	///// Controller
@@ -30,6 +32,7 @@ error_reporting(0);
 			$message_notify = "ตัดสัญญาณทันที ".$data["CardNo"]." ดำเนินการโดย ".$data["BY"]." กรุณารอ 3-5 นาที ระบบกำลังดำเนินการ....";
 
 			notify($message_notify,$token);
+			notify($message_notify,$token2);
 
 		}
 
@@ -53,6 +56,7 @@ error_reporting(0);
 			$message_notify = "ต่อสัญญาณทันที ".$data["CardNo"]." ดำเนินการโดย ".$data["BY"]." กรุณารอ 3-5 นาที ระบบกำลังดำเนินการ....";
 			$Status_Card = "Open";
 			notify($message_notify,$token);
+			notify($message_notify,$token2);
 
 		}
 
