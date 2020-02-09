@@ -17,25 +17,25 @@ error_reporting(0);
 	echo $data["CardNo"]."\n".$data["Status"]."\n";
 
 	
-	if ( $_POST["Status"] == "Cut" ) {
+	if ( $data["Status"] == "Cut" ) {
 		
-		$string  = " perl /var/www/html/schedue/digital/cutcard.pl ".$_POST["CardNo"]." ";
+		$string  = " perl /var/www/html/schedue/digital/cutcard.pl ".$data["CardNo"]." ";
 
 		$exe =  shell_exec( $string );
 
 		if ($exe) {
-			echo "CUT ".$_POST["CardNo"];
+			echo "CUT ".$data["CardNo"];
 		}
 
 	}else	
-	if ( $_POST["Status"] == "Open" ) {
+	if ( $data["Status"] == "Open" ) {
 		
-		$string  = " perl /var/www/html/schedue/digital/opencard.pl ".$_POST["CardNo"]." ";
+		$string  = " perl /var/www/html/schedue/digital/opencard.pl ".$data["CardNo"]." ";
 
 		$exe =  shell_exec( $string );
 
 		if ($exe) {
-			echo "Open ".$_POST["CardNo"];
+			echo "Open ".$data["CardNo"];
 		}
 
 	}
