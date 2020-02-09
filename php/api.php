@@ -1,4 +1,6 @@
 <?php 
+	ini_set('mssql.charset', 'UTF-8');
+    $connection = mssql_connect('mssqlcon', 'sa', 'Sakorn123');
 
 		
 error_reporting(0);
@@ -31,6 +33,15 @@ error_reporting(0);
 			$Status_Card = "CUT";
 			$message_notify = "ตัดสัญญาณทันที ".$data["CardNo"]." ดำเนินการโดย ".$data["BY"]." กรุณารอ 3-5 นาที ระบบกำลังดำเนินการ....";
 
+			mssql_query("INSERT INTO [WebSakorn].[dbo].[CardOperator]
+           ([EmployeeID]
+           ,[CardNo]
+           ,[Status])
+     VALUES
+           ('".$data["EmpID"]."'
+           ,'".$data["CardNo"]."'
+           ,'".$data["Status"]."') ");
+
 			notify($message_notify,$token);
 			notify($message_notify,$token2);
 
@@ -55,6 +66,16 @@ error_reporting(0);
 
 			$message_notify = "ต่อสัญญาณทันที ".$data["CardNo"]." ดำเนินการโดย ".$data["BY"]." กรุณารอ 3-5 นาที ระบบกำลังดำเนินการ....";
 			$Status_Card = "Open";
+
+			mssql_query("INSERT INTO [WebSakorn].[dbo].[CardOperator]
+           ([EmployeeID]
+           ,[CardNo]
+           ,[Status])
+     VALUES
+           ('".$data["EmpID"]."'
+           ,'".$data["CardNo"]."'
+           ,'".$data["Status"]."') ");
+			
 			notify($message_notify,$token);
 			notify($message_notify,$token2);
 
