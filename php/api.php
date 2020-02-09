@@ -12,38 +12,33 @@ error_reporting(0);
 	$data = json_decode($pull,true);
 
 	print_r($data);
+ 
 
-	echo "<br>";
+	echo $data["CardNo"]."\n".$data["Status"]."\n";
 
-	echo $data["CardNo"]."<br>".$data["Status"]."<br>";
-
-	/*
-	if ( isset($_POST["cutcard"]) ) {
+	
+	if ( $_POST["Status"] == "Cut" ) {
 		
-		$string  = " perl /var/www/html/schedue/digital/cutcard.pl ".$_POST["card"]." ";
+		$string  = " perl /var/www/html/schedue/digital/cutcard.pl ".$_POST["CardNo"]." ";
 
 		$exe =  shell_exec( $string );
 
 		if ($exe) {
-			echo "CUT ".$_POST["card"];
+			echo "CUT ".$_POST["CardNo"];
 		}
 
 	}else	
-	if ( isset($_POST["connectcard"]) ) {
+	if ( $_POST["Status"] == "Open" ) {
 		
-		$string  = " perl /var/www/html/schedue/digital/opencard.pl ".$_POST["card"]." ";
+		$string  = " perl /var/www/html/schedue/digital/opencard.pl ".$_POST["CardNo"]." ";
 
 		$exe =  shell_exec( $string );
 
 		if ($exe) {
-			echo "Connect ".$_POST["card"];
+			echo "Open ".$_POST["CardNo"];
 		}
 
-	}else{
-
-
-
-	}*/
+	}
 
 
 
