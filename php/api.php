@@ -35,7 +35,14 @@ error_reporting(0);
 
 	}else	
 	if ( $data["Status"] == "Open" ) {
-		
+			
+
+		$stringa  = " perl /var/www/html/schedue/digital/cutcard.pl ".$data["CardNo"]." ";
+
+		$exea =  shell_exec( $string );
+
+		sleep(2);
+
 		$string  = " perl /var/www/html/schedue/digital/opencard.pl ".$data["CardNo"]." ";
 
 		$exe =  shell_exec( $string );
@@ -54,7 +61,7 @@ error_reporting(0);
 	$status_back = array('CardNo' => $data["CardNo"] , 'Status' => $Status_Card );
 
 	print_r($status_back);
-	
+
 	echo json_encode($status_back);
 
 
