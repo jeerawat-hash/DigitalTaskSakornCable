@@ -8,7 +8,7 @@
 
   	$query = mssql_query("
 
-  	SELECT TOP 5 [ID],DB
+  	SELECT TOP 1 [ID],DB
       ,[CardNO]
       ,[CustomerID]
       ,[PayCode]
@@ -46,7 +46,7 @@
 
   		#shell_exec(" perl /var/www/html/schedue/digital/notifycard.pl ".$result["CardNO"]." ".$message." ".$result["WriteDate"]." 20:00:00 ");
 
-  		sleep(5);
+  		sleep(20);
 
   		#shell_exec(" perl /var/www/html/schedue/digital/notifycard.pl ".$result["CardNO"]." ".$message." ".$result["WriteDate"]." 21:00:00 ");
  

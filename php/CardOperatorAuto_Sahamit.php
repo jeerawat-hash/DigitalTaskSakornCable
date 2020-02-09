@@ -17,7 +17,7 @@
 	}
 	 
 
-	$query_str = mssql_query(" select top 5 'Sahamit' as DB,UserID,RowOrder,CardNO,IsOpenCard,IsUpdateCASAlready from Sahamit.dbo.CustomerCardLog where IsUpdateCASAlready = 0 order by RowOrder asc ");
+	$query_str = mssql_query(" select top 3 'Sahamit' as DB,UserID,RowOrder,CardNO,IsOpenCard,IsUpdateCASAlready from Sahamit.dbo.CustomerCardLog where IsUpdateCASAlready = 0 order by RowOrder asc ");
 
 
 
@@ -53,7 +53,7 @@
 
 		$message_notify .= $result["CardNO"]." ".$result["UserID"]." ".$status_auto."\n";
 
-		sleep(10);
+		sleep(20);
 
 	}
  
