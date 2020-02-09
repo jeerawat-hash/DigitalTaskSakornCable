@@ -29,7 +29,7 @@ error_reporting(0);
 		$exe =  shell_exec( $string );
 
 		if ($exe) {
-			echo "CUT ".$data["CardNo"];
+			#echo "CUT ".$data["CardNo"];
 			$Status_Card = "CUT";
 			$message_notify = "ตัดสัญญาณทันที ".$data["CardNo"]." ดำเนินการโดย ".$data["BY"]." กรุณารอ 3-5 นาที ระบบกำลังดำเนินการ....";
 
@@ -62,7 +62,7 @@ error_reporting(0);
 		$exe =  shell_exec( $string );
 
 		if ($exe) {
-			echo "Open ".$data["CardNo"];
+			#echo "Open ".$data["CardNo"];
 
 			$message_notify = "ต่อสัญญาณทันที ".$data["CardNo"]." ดำเนินการโดย ".$data["BY"]." กรุณารอ 3-5 นาที ระบบกำลังดำเนินการ....";
 			$Status_Card = "Open";
