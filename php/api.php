@@ -50,7 +50,7 @@ error_reporting(0);
 		if ($exe) {
 			echo "Open ".$data["CardNo"];
 
-			$message_notify = "ตัดสัญญาณทันที ".$data["CardNo"]." ดำเนินการโดย ".$data["BY"]." กรุณารอ 3-5 นาที ระบบกำลังดำเนินการ....";
+			$message_notify = "ต่อสัญญาณทันที ".$data["CardNo"]." ดำเนินการโดย ".$data["BY"]." กรุณารอ 3-5 นาที ระบบกำลังดำเนินการ....";
 			$Status_Card = "Open";
 			notify($message_notify,$token);
 
