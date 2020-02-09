@@ -53,7 +53,7 @@
 
 		$message_notify .= $result["CardNO"]." ".$result["UserID"]." ".$status_auto."\n";
 
-		sleep(20);
+		sleep(10);
 	}
  
 
