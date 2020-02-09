@@ -1,7 +1,14 @@
 <?php 
 
+		
+		///// Controller
+    $pull = file_get_contents("php://input");
+    ///// Controller
 
-	print_r($_POST);
+    ///// Model
+	$data = json_decode($pull,true);
+
+	print_r($data);
 
 
  ?>
