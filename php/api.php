@@ -15,7 +15,7 @@ error_reporting(0);
 
 	echo "<br>";
 
-	echo $data[0]["CardNo"]."<br>".$data[0]["Status"]."<br>";
+	echo $data["CardNo"]."<br>".$data["Status"]."<br>";
 
 	/*
 	if ( isset($_POST["cutcard"]) ) {
