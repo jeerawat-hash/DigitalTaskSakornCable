@@ -84,9 +84,7 @@ error_reporting(0);
 	}
 
 	$status_back = array('CardNo' => $data["CardNo"] , 'Status' => $Status_Card );
-
-	print_r($status_back);
-
+ 
 	echo json_encode($status_back);
 
 
