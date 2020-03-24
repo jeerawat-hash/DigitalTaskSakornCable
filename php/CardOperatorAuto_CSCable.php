@@ -4,7 +4,7 @@
     $connection = mssql_connect('mssqlcon', 'sa', 'Sakorn123');
 
 
-	$token = "xwIy9YnB1ByZfiFz9dS4Pe82hLw9o5nRnQdmqnXlBBZ";
+	$token = "";
  
 
 	$CasCheck = mssql_fetch_array(mssql_query(" SELECT  [Cas_IsNormal]
@@ -37,6 +37,7 @@
 			$exe =  shell_exec( $string );
 
 			$status_auto = "ต่อ";
+			$token = "xwIy9YnB1ByZfiFz9dS4Pe82hLw9o5nRnQdmqnXlBBZ";
 
 		}else
 		if ( $result["IsOpenCard"] == "0" ) {
@@ -47,6 +48,7 @@
 			$exe =  shell_exec( $string );
  			
  			$status_auto = "ตัด";
+ 			$token = "Ahlxzwfwdnv7CjVPMC3s6fdNPtOEH49AeQkhF4CUfKI";
 		}
  
 
