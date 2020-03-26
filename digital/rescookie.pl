@@ -5,7 +5,7 @@
   # Create a request
   my $req = new HTTP::Request POST => 'http://172.168.2.2:8081/sms2_4/ca/searchcamessage.do';
 
-  $req->header('Cookie' => 'JSESSIONID=498A9853A0211B3C4C3480780374114A');
+  $req->header('Cookie' => 'JSESSIONID=D657AE6B4AAD5BE08A0C7748D37AB946');
 
   $req->content_type('application/x-www-form-urlencoded');
   $req->content('accreditType=&endDate=&operate=info_search&page=&scCode=&startDate=&subAreaId=&subTypeId=');
