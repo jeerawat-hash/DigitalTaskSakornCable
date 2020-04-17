@@ -103,7 +103,7 @@
       }
 
 
-      echo $all;
+      echo substr($all, 0, strlen($all) - 1 );
 
 
 
