@@ -86,7 +86,7 @@
                     //$exe =  shell_exec( $string );
 
                     
-                    $Report .= $Card["DB"]." ".$Card["CardID"]." ".$Card["CustomerID"]."\n".$Card["CustomerName"]." ".$Card["Telephone"]." ".$Card["Soi"]."\n";
+                    $Report .= $Card["DB"]." ".$Card["CardID"]." ".$Card["CustomerID"]."\n".$Card["CustomerName"]."\n".$Card["Telephone"]." ".$Card["Soi"]."\n";
                      
 
                     sleep(2);
