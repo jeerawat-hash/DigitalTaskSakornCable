@@ -9,7 +9,7 @@
       $connection = mssql_connect('mssqlcon', 'sa', 'Sakorn123');
 
       
-      $getAllTele_str = mssql_query( " SELECT top 1 * FROM [LineSakorn].[dbo].[PreOpenCard] where IsSuccess = 0  order by ID asc " );
+      $getAllTele_str = mssql_query( " SELECT top 3 * FROM [LineSakorn].[dbo].[PreOpenCard] where IsSuccess = 0  order by ID asc " );
 
       while ($Telephone = mssql_fetch_array($getAllTele_str)) {
  
