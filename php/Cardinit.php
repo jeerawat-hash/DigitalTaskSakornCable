@@ -103,7 +103,9 @@
             
             $CardStatus = mssql_num_rows($Card_str);
             $StatusRemrk = "";
- 
+
+            sleep(1);
+
             if ($CardStatus == 0) {
                 ############ cut card number ##############
 
@@ -114,7 +116,7 @@
                 ############ cut card number ##############
                 $StatusRemrk = "FreeCard";
 
-                $Report .= "ตัด ".$resultCard["CardNO"]."\n"
+                $Report .= "ตัด ".$resultCard["CardNO"]."\n";
 
             }else{
 
@@ -133,8 +135,34 @@
 
       $ReportAll = "SyncCardStatus by CasServer....\n".$Report;
 
-      echo $ReportAll;
+
+
+      notify($ReportAll,"Ahlxzwfwdnv7CjVPMC3s6fdNPtOEH49AeQkhF4CUfKI");
+      
  
+
+
+
+
+function notify($message,$token){
+
+          $lineapi = $token; 
+        $mms =  trim($message); 
+        date_default_timezone_set("Asia/Bangkok");
+        $con = curl_init();
+        curl_setopt( $con, CURLOPT_URL, "https://notify-api.line.me/api/notify"); 
+        // SSL USE 
+        curl_setopt( $con, CURLOPT_SSL_VERIFYHOST, 0); 
+        curl_setopt( $con, CURLOPT_SSL_VERIFYPEER, 0); 
+        //POST 
+        curl_setopt( $con, CURLOPT_POST, 1); 
+        curl_setopt( $con, CURLOPT_POSTFIELDS, "message=$mms"); 
+        $headers = array( 'Content-type: application/x-www-form-urlencoded', 'Authorization: Bearer '.$lineapi.'', );
+          curl_setopt($con, CURLOPT_HTTPHEADER, $headers); 
+        curl_setopt( $con, CURLOPT_RETURNTRANSFER, 1); 
+        $result = curl_exec( $con ); 
+
+}
 
 
  ?>
