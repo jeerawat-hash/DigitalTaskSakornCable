@@ -136,9 +136,11 @@
 
       $ReportAll = "SyncCardStatus by CasServer....\n".$Report;
 
+      if ( $Report != "" ) {
+        notify($ReportAll,"Ahlxzwfwdnv7CjVPMC3s6fdNPtOEH49AeQkhF4CUfKI");
+      }
 
-
-      notify($ReportAll,"Ahlxzwfwdnv7CjVPMC3s6fdNPtOEH49AeQkhF4CUfKI");
+      
       
  
 
