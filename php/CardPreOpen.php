@@ -80,7 +80,7 @@
                   while ($Card = mssql_fetch_array($CardStr)) {
                     
  
-                    $string  = " perl /var/www/html/schedue/digital/opencard.pl ".$Card["CardID"];." ";
+                    $string  = " perl /var/www/html/schedue/digital/opencard.pl ".$Card["CardID"]." ";
 
                     $exe =  shell_exec( $string );
 
