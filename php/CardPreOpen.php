@@ -80,9 +80,9 @@
                   while ($Card = mssql_fetch_array($CardStr)) {
                     
  
-                    //$string  = " perl /var/www/html/schedue/digital/opencard.pl ".$Card["CardID"];." ";
+                    $string  = " perl /var/www/html/schedue/digital/opencard.pl ".$Card["CardID"];." ";
 
-                    //$exe =  shell_exec( $string );
+                    $exe =  shell_exec( $string );
 
                     
                     $Report .= $Card["DB"]." ".$Card["CardID"]." ".$Card["CustomerID"]."\n".$Card["CustomerName"]."\n".$Card["Telephone"]." ".$Card["Soi"]."\n";
@@ -108,7 +108,7 @@
               $message = "ดำเนินการ ต่อการ์ดชั่วคราว\n".$Report;
 
               if ($Report != "") {
-                  
+
                 $token = "xwIy9YnB1ByZfiFz9dS4Pe82hLw9o5nRnQdmqnXlBBZ";
                 notify($message,$token);
 
