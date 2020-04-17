@@ -9,7 +9,7 @@
       $connection = mssql_connect('mssqlcon', 'sa', 'Sakorn123');
 
       
-      $getAllTele_str = mssql_query( " select top 3 * from [LineSakorn].[dbo].[PreOpenCard] where  IsOpenCard = 1 " );
+      $getAllTele_str = mssql_query( " select top 5 * from [LineSakorn].[dbo].[PreOpenCard] where  IsOpenCard = 1 order by ID asc " );
 
       while ($Telephone = mssql_fetch_array($getAllTele_str)) {
  
@@ -17,7 +17,7 @@
           $CardStr = mssql_query(" 
             declare @Telephone char(10)
 
-            set @Telephone = '0996162847'
+            set @Telephone = '".$Telephone["Telephone"]."'
             
             select 'Bangchalong' as DB,a.CardID,b.CustomerID,b.Telephone,b.CustomerName,b.Soi from Bangchalong.dbo.customercabletype a
             join Bangchalong.dbo.Customer b on a.CustomerID = b.CustomerID
@@ -80,9 +80,9 @@
                   while ($Card = mssql_fetch_array($CardStr)) {
                     
  
-                    //$string  = " perl /var/www/html/schedue/digital/cutcard.pl ".$Card["CardID"]." ";
+                    $string  = " perl /var/www/html/schedue/digital/cutcard.pl ".$Card["CardID"]." ";
 
-                    //$exe =  shell_exec( $string );
+                    $exe =  shell_exec( $string );
 
                     
                     $Report .= $Card["DB"]." ".$Card["CardID"]." ".$Card["CustomerID"]."\n".$Card["CustomerName"]."\n".$Card["Telephone"]." ".$Card["Soi"]."\n";
