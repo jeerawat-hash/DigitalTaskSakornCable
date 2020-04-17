@@ -111,13 +111,15 @@
       $connection = mssql_connect('mssqlcon', 'sa', 'Sakorn123');
 
       
-      $getAllCard_str = " SELECT top 10 [ID]
+      $getAllCard_str = mssql_query( " SELECT top 10 [ID]
             ,[CardNO]
             ,[Is_Init]
-        FROM [WebSakorn].[dbo].[CardInit] where Is_Init = 0 order by ID ";
+        FROM [WebSakorn].[dbo].[CardInit] where Is_Init = 0 order by ID " );
 
 
       $Report = "";
+
+
 
 
       while ($resultCard = mssql_fetch_array($getAllCard_str)) {
