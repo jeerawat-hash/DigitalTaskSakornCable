@@ -12,13 +12,12 @@
       $getAllTele_str = mssql_query( " SELECT top 1 * FROM [LineSakorn].[dbo].[PreOpenCard] where IsSuccess = 0  order by ID asc " );
 
       while ($Telephone = mssql_fetch_array($getAllTele_str)) {
-
-        //set @Telephone = '".$Telephone["Telephone"]."'
+ 
           
           $CardStr = mssql_query(" 
             declare @Telephone char(10)
 
-             set @Telephone = '0996162847'
+            set @Telephone = '".$Telephone["Telephone"]."'
             
             select 'Bangchalong' as DB,a.CardID,b.CustomerID,b.Telephone,b.CustomerName,b.Soi from Bangchalong.dbo.customercabletype a
             join Bangchalong.dbo.Customer b on a.CustomerID = b.CustomerID
@@ -108,9 +107,13 @@
 
               $message = "ดำเนินการ ต่อการ์ดชั่วคราว\n".$Report;
 
+              if ($Report != "") {
+                  
+                $token = "xwIy9YnB1ByZfiFz9dS4Pe82hLw9o5nRnQdmqnXlBBZ";
+                notify($message,$token);
 
-              $token = "xwIy9YnB1ByZfiFz9dS4Pe82hLw9o5nRnQdmqnXlBBZ";
-              notify($message,$token);
+              } 
+
               ############################ update log #############################
           
 
