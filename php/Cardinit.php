@@ -97,7 +97,7 @@
  
 
         $all .=  "INSERT INTO [WebSakorn].[dbo].[CardInit]
-             ([CardNO]) VALUES ('".$result["CardNO"]."')";
+             ([CardNO]) VALUES ('".$result["CardNO"]."')\n";
 
 
 
