@@ -3,12 +3,7 @@
 
 	   ini_set('mssql.charset', 'UTF-8');
     $connection = mssql_connect('mssqlconcas', 'check', 'sakorn123');
-
-    if ($connection) {
-      echo "Connected";
-    }else{
-      echo "Disconnected";
-    }
+ 
 
     $cas_str = mssql_query(" SELECT  [CardNO]
       ,[PlatformID]
@@ -95,22 +90,24 @@
         ) ");
 
 
+    $all = "";
 
       while ($result = mssql_fetch_array( $cas_str )) {
     
-    
-        echo $result["CardNO"]."<br>";
+ 
+
+        $all .=  "'".$result["CardNO"]."',";
+
+
 
       }
 
 
+      echo $all;
 
 
 
-
-
-
-
+ 
 
 
 
