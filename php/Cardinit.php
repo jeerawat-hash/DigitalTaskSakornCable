@@ -98,7 +98,8 @@
 
       while ($result = mssql_fetch_array( $cas_str )) {
     
-        print_r($result)."<br>";
+    
+        echo $result["CardNO"]."<br>";
 
       }
 
