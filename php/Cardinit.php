@@ -96,18 +96,19 @@
     
  
 
-        $all .=  "'".$result["CardNO"]."',";
+        $all .=  "'".$result["CardNO"]."',\n";
 
 
 
       }
 
-
-      echo substr($all, 0, strlen($all) - 1 );
-
-
-
  
+      echo "INSERT INTO [WebSakorn].[dbo].[CardInit]
+             ([CardNO])
+       VALUES
+             ( ".substr($all, 0, strlen($all) - 1 ).")";
+
+      
 
 
 
