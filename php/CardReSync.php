@@ -190,7 +190,7 @@
 
               mssql_query(" update [LineSakorn].[dbo].[PreOpenCard] set IsReInit = 1 where ID = '".$Telephone["ID"]."' ");
             
-              $message = "ทำการ Sync ค่าเบอร์ ".$Telephone["Telephone"]."จากระบบต่อชั่วคราว\n".$Report."สำเร็จ";
+              $message = "ทำการ Sync ค่าเบอร์ ".$Telephone["Telephone"]." จากระบบต่อชั่วคราว\n".$Report."สำเร็จ";
 
               if ($Report != "") {
                 
