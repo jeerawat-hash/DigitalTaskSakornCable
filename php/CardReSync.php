@@ -178,7 +178,6 @@
                         } 
 
 
-
                   }
 
                   ################## Card Operate ######################
@@ -194,8 +193,9 @@
               $message = "ทำการ Sync ค่าเบอร์\n".$Report."สำเร็จ";
 
               if ($Report != "") {
-
-                $token = "xwIy9YnB1ByZfiFz9dS4Pe82hLw9o5nRnQdmqnXlBBZ";
+                
+                //$token = "xwIy9YnB1ByZfiFz9dS4Pe82hLw9o5nRnQdmqnXlBBZ";
+                $token = "X3Ns5J0u2UhKkoirOm20GIvRyFlNtA3R7LJEizfhGQN";
                 notify($message,$token);
 
               } 

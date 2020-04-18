@@ -34,7 +34,8 @@
 			$exe =  shell_exec( $string );
 
 			$status_auto = "ต่อ";
-			$token = "xwIy9YnB1ByZfiFz9dS4Pe82hLw9o5nRnQdmqnXlBBZ";
+            //$token = "xwIy9YnB1ByZfiFz9dS4Pe82hLw9o5nRnQdmqnXlBBZ";
+            $token = "X3Ns5J0u2UhKkoirOm20GIvRyFlNtA3R7LJEizfhGQN";
 
 		}else
 		if ( $result["IsOpenCard"] == "0" ) {
