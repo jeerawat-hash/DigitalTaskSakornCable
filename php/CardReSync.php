@@ -15,7 +15,7 @@
       ,[CreateDate]
       ,[IsSuccess]
       ,[IsReInit]
-  FROM [LineSakorn].[dbo].[PreOpenCard] where IsReInit = 0 order by ID " );
+  FROM [LineSakorn].[dbo].[PreOpenCard] where IsReInit = 0 and IsSuccess = 1 and IsOpenCard = 0 order by ID " );
 
 
 
@@ -202,7 +202,6 @@
 
               ############################ update log #############################
           
-
       }
  
       
