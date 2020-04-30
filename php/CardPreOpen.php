@@ -79,6 +79,7 @@
 
 
                   $Report = "";
+                  $Report_Dupcate = "";
 
                   ################## Card Operate ######################
                   while ($Card = mssql_fetch_array($CardStr)) {
@@ -160,16 +161,49 @@
 
 
                         if ( mssql_num_rows($CardSyncStr) != 0 ) {
-                          
-                          
-                          $string  = " perl /var/www/html/schedue/digital/opencard.pl ".$Card["CardID"]." ";
 
-                          $exe =  shell_exec( $string );
 
-                          
-                          $Report .= $Card["DB"]." ".$Card["CardID"]." ".$Card["CustomerID"]."\n".$Card["CustomerName"]."\n".$Card["Telephone"]." ".$Card["Soi"]."\n";
-                           
 
+                          $check_CardCycle = mssql_num_rows(mssql_query(" select * from [LineSakorn].[dbo].[OpenCard] where CardNo = '".$Card["CardID"]."' and month(CreateDate) = MONTH(GETDATE()) "));
+
+
+                          if ($check_CardCycle == 0) {
+
+
+                            $Insert_CardCycle = mssql_query(" INSERT INTO [LineSakorn].[dbo].[OpenCard]
+                             ([CardNo]
+                             ,[CreateDate])
+                       VALUES
+                             ('".$Card["CardID"]."'
+                             ,'".date("Y-m-d")."') ");
+
+
+                            $string  = " perl /var/www/html/schedue/digital/opencard.pl ".$Card["CardID"]." ";
+
+                            $exe =  shell_exec( $string );
+
+                            
+                            $Report .= $Card["DB"]." ".$Card["CardID"]." ".$Card["CustomerID"]."\n".$Card["CustomerName"]."\n".$Card["Telephone"]." ".$Card["Soi"]."\n";
+
+
+
+                          }else{
+
+
+
+
+                            $Report_Dupcate .= $Card["DB"]." ".$Card["CardID"]." ".$Card["CustomerID"]."\n".$Card["CustomerName"]."\n".$Card["Telephone"]." ".$Card["Soi"]."\n";
+
+
+
+
+                          }
+
+
+
+
+
+  
                         }
  
 
@@ -191,12 +225,21 @@
             
 
               $message = "ดำเนินการ ต่อการ์ดชั่วคราว\n".$Report;
+              $message2 = "พยายามต่อการ์ดชั่วคราว ต่อการ์ดชั่วคราว\n".$Report;
 
               if ($Report != "") {
 
                 //$token = "xwIy9YnB1ByZfiFz9dS4Pe82hLw9o5nRnQdmqnXlBBZ";
                 $token = "X3Ns5J0u2UhKkoirOm20GIvRyFlNtA3R7LJEizfhGQN";
                 notify($message,$token);
+
+              }
+
+              if ($Report_Dupcate != "") {
+
+                //$token = "xwIy9YnB1ByZfiFz9dS4Pe82hLw9o5nRnQdmqnXlBBZ";
+                $token = "X3Ns5J0u2UhKkoirOm20GIvRyFlNtA3R7LJEizfhGQN";
+                notify($message2,$token);
 
               } 
 

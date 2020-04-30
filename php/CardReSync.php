@@ -164,14 +164,32 @@
 
 
                         if (mssql_num_rows($CardSyncStr) != 0 ) {
+
+
+
+
+                          $check_CardCycle = mssql_num_rows(mssql_query(" select * from [LineSakorn].[dbo].[OpenCard] where CardNo = '".$Card["CardID"]."' and month(CreateDate) = MONTH(GETDATE()) and IsSuccess = 1 "));
+
+
+                          /// begin
+                          if ($check_CardCycle != 0) {
+
+                            $string  = " perl /var/www/html/schedue/digital/opencard.pl ".$Card["CardID"]." ";
+
+                            $exe =  shell_exec( $string );
+
+                            
+                            $Report .= $Card["DB"]." ".$Card["CardID"]." ".$Card["CustomerID"]."\n".$Card["CustomerName"]."\n".$Card["Telephone"]." ".$Card["Soi"]."\n";
+
+
+                            mssql_query(" update [LineSakorn].[dbo].[OpenCard] set IsSuccess = 2 where CardNo = '".$Card["CardID"]."' ");
+        
+
+                          }
+                          //// end
                           
 
-                          $string  = " perl /var/www/html/schedue/digital/opencard.pl ".$Card["CardID"]." ";
-
-                          $exe =  shell_exec( $string );
-
                           
-                          $Report .= $Card["DB"]." ".$Card["CardID"]." ".$Card["CustomerID"]."\n".$Card["CustomerName"]."\n".$Card["Telephone"]." ".$Card["Soi"]."\n";
 
                           sleep(2);
 
