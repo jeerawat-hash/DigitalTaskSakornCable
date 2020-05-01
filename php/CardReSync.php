@@ -168,7 +168,8 @@
 
 
 
-                          $check_CardCycle = mssql_num_rows(mssql_query(" select * from [LineSakorn].[dbo].[OpenCard] where CardNo = '".$Card["CardID"]."' and month(CreateDate) = MONTH(GETDATE()) and IsSuccess = 1 "));
+                          //$check_CardCycle = mssql_num_rows(mssql_query(" select * from [LineSakorn].[dbo].[OpenCard] where CardNo = '".$Card["CardID"]."' and month(CreateDate) = MONTH(GETDATE()) and IsSuccess = 1 "));
+                          $check_CardCycle = mssql_num_rows(mssql_query(" select * from [LineSakorn].[dbo].[OpenCard] where CardNo = '".$Card["CardID"]."' and IsSuccess = 1 "));
 
 
                           /// begin
@@ -182,7 +183,7 @@
                             $Report .= $Card["DB"]." ".$Card["CardID"]." ".$Card["CustomerID"]."\n".$Card["CustomerName"]."\n".$Card["Telephone"]." ".$Card["Soi"]."\n";
 
 
-                            mssql_query(" update [LineSakorn].[dbo].[OpenCard] set IsSuccess = 2 where CardNo = '".$Card["CardID"]."' ");
+                            mssql_query(" update [LineSakorn].[dbo].[OpenCard] set IsSuccess = 2 where CardNo = '".$Card["CardID"]."' and IsSuccess = 1 ");
         
 
                           }
