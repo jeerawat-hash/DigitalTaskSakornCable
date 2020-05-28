@@ -9,7 +9,7 @@
   my ($card,$message,$date,$time) = @ARGV;
   #$name = '9980003200006591';
 
-  $req->header('Cookie' => 'JSESSIONID=BBA1CE01C0C7F69D29C6CD9E1DB42812');
+  $req->header('Cookie' => 'JSESSIONID=D7F041C0B6C136614D035436ED6298A0');
 
   $req->content_type('application/x-www-form-urlencoded');
   #$req->content('accreditType=CARDOSD&duration=60&id=&message=ทดสอบระบบ&operate=insert&remark=test&scCode=9980003200006591&sendCount=1&sendInterval=60&sendTime=2019-11-19%2017:10:00&subAreaId=&subTypeId=&title=');
