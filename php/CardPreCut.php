@@ -22,7 +22,7 @@
             
             select 'Bangchalong' as DB,a.CardID,b.CustomerID,b.Telephone,b.CustomerName,b.Soi from Bangchalong.dbo.customercabletype a
             join Bangchalong.dbo.Customer b on a.CustomerID = b.CustomerID
-            where b.Telephone = @Telephone and CardID != ''
+            where b.Telephone = @Telephone and CardID != '' 
             
             union 
             

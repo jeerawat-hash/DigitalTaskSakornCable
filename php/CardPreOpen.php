@@ -22,55 +22,55 @@
             
             select 'Bangchalong' as DB,a.CardID,b.CustomerID,b.Telephone,b.CustomerName,b.Soi from Bangchalong.dbo.customercabletype a
             join Bangchalong.dbo.Customer b on a.CustomerID = b.CustomerID
-            where b.Telephone = @Telephone and CardID != ''
+            where b.Telephone = @Telephone and CardID != '' and b.Suspend = 0
             
             union 
             
             select 'Flat' as DB,a.CardID,b.CustomerID,b.Telephone,b.CustomerName,b.Soi from Flat.dbo.customercabletype a
             join Flat.dbo.Customer b on a.CustomerID = b.CustomerID
-            where b.Telephone = @Telephone and CardID != ''
+            where b.Telephone = @Telephone and CardID != '' and b.Suspend = 0
             
             union 
             
             select 'CSCable' as DB,a.CardID,b.CustomerID,b.Telephone,b.CustomerName,b.Soi from CSCable.dbo.customercabletype a
             join CSCable.dbo.Customer b on a.CustomerID = b.CustomerID
-            where b.Telephone = @Telephone and CardID != ''
+            where b.Telephone = @Telephone and CardID != '' and b.Suspend = 0
             
             union 
             
             select 'Sahamit' as DB,a.CardID,b.CustomerID,b.Telephone,b.CustomerName,b.Soi from Sahamit.dbo.customercabletype a
             join Sahamit.dbo.Customer b on a.CustomerID = b.CustomerID
-            where b.Telephone = @Telephone and CardID != ''
+            where b.Telephone = @Telephone and CardID != '' and b.Suspend = 0
             
             union 
             
             select 'SakornCable' as DB,a.CardID,b.CustomerID,b.Telephone,b.CustomerName,b.Soi from SakornCable.dbo.customercabletype a
             join SakornCable.dbo.Customer b on a.CustomerID = b.CustomerID
-            where b.Telephone = @Telephone and CardID != ''
+            where b.Telephone = @Telephone and CardID != '' and b.Suspend = 0
             
             union 
             
             select 'SakornNetwork' as DB,a.CardID,b.CustomerID,b.Telephone,b.CustomerName,b.Soi from SakornNetwork.dbo.customercabletype a
             join SakornNetwork.dbo.Customer b on a.CustomerID = b.CustomerID
-            where b.Telephone = @Telephone and CardID != ''
+            where b.Telephone = @Telephone and CardID != '' and b.Suspend = 0
             
             union 
             
             select 'SakornNewBusiness' as DB,a.CardID,b.CustomerID,b.Telephone,b.CustomerName,b.Soi from SakornNewBusiness.dbo.customercabletype a
             join SakornNewBusiness.dbo.Customer b on a.CustomerID = b.CustomerID
-            where b.Telephone = @Telephone and CardID != ''
+            where b.Telephone = @Telephone and CardID != '' and b.Suspend = 0
             
             union 
             
             select 'Sakorp' as DB,a.CardID,b.CustomerID,b.Telephone,b.CustomerName,b.Soi from Sakorp.dbo.customercabletype a
             join Sakorp.dbo.Customer b on a.CustomerID = b.CustomerID
-            where b.Telephone = @Telephone and CardID != ''
+            where b.Telephone = @Telephone and CardID != '' and b.Suspend = 0
             
             union 
             
             select 'SRN' as DB,a.CardID,b.CustomerID,b.Telephone,b.CustomerName,b.Soi from SRN.dbo.customercabletype a
             join SRN.dbo.Customer b on a.CustomerID = b.CustomerID
-            where b.Telephone = @Telephone and CardID != '' 
+            where b.Telephone = @Telephone and CardID != '' and b.Suspend = 0
 
 
             ");
