@@ -18,7 +18,7 @@
 	}
 	 
 
-	$query_str = mssql_query(" select top 100 'SakornNetwork' as DB,UserID,RowOrder,CardNO,IsOpenCard,IsUpdateCASAlready from SakornNetwork.dbo.CustomerCardLog where IsUpdateCASAlready = 0 order by RowOrder asc ");
+	$query_str = mssql_query(" select top 3 'SakornNetwork' as DB,UserID,RowOrder,CardNO,IsOpenCard,IsUpdateCASAlready from SakornNetwork.dbo.CustomerCardLog where IsUpdateCASAlready = 0 order by RowOrder asc ");
 
 
 
@@ -66,7 +66,7 @@
 
 	if ( mssql_num_rows($query_str) != 0 ) {
 		
-		//notify($message_notify,$token);
+		notify($message_notify,$token);
 
 	}
 

@@ -17,7 +17,7 @@
 	}
 	 
 
-	$query_str = mssql_query(" select top 100 'Bangchalong' as DB,UserID,RowOrder,CardNO,IsOpenCard,IsUpdateCASAlready from Bangchalong.dbo.CustomerCardLog where IsUpdateCASAlready = 0 order by RowOrder asc ");
+	$query_str = mssql_query(" select top 3 'Bangchalong' as DB,UserID,RowOrder,CardNO,IsOpenCard,IsUpdateCASAlready from Bangchalong.dbo.CustomerCardLog where IsUpdateCASAlready = 0 order by RowOrder asc ");
 
 	$message_notify = "ดำเนินการการ์ด กุญแจ Bangchalong \n";
 
@@ -62,7 +62,7 @@
 
 	if ( mssql_num_rows($query_str) != 0 ) {
  
-		//notify($message_notify,$token);
+		notify($message_notify,$token);
 
 	}
 	
