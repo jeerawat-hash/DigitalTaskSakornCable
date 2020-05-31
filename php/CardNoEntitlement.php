@@ -18,14 +18,14 @@
       ,[Telephone]
       ,[IsSuccess]
     ,[SyncDate]
-    FROM [LineSakorn].[dbo].[NoEntitlement] "));
+    FROM [LineSakorn].[dbo].[NoEntitlement] ",$a));
 
         print_r($aa);
       }
 
       if ($b) {
         echo "Btrue\n";
-        $bb = mssql_fetch_array(mssql_query(" SELECT * FROM [CAS].[dbo].[Card2Platform] "));
+        $bb = mssql_fetch_array(mssql_query(" SELECT * FROM [CAS].[dbo].[Card2Platform] ",$b));
         print_r($bb);
 
       }
