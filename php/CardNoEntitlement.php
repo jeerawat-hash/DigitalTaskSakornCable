@@ -7,7 +7,7 @@
       ////////////////////////// begin cut out //////////////////////////////
 
       $connection1 = mssql_connect('mssqlcon', 'sa', 'Sakorn123');
-      $connection1 = mssql_connect('mssqlconcas', 'check', 'Sakorn123');
+      $connection2 = mssql_connect('mssqlconcas', 'check', 'Sakorn123');
       
 
       $Query =  mssql_query(" SELECT top 2 [ID]
