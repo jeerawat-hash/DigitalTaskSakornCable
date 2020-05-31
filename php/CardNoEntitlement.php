@@ -10,18 +10,50 @@
        
 
       $b = mssql_connect('mssqlconcas', 'check', 'Sakorn123');
- 
-      if ($a) {
-        echo "Atrue\n";
-        $aa = mssql_fetch_array(mssql_query(" SELECT top 2 [ID]
+  
+        
+
+
+      $Query =  mssql_query(" SELECT top 2 [ID]
       ,[CardNO]
       ,[Telephone]
       ,[IsSuccess]
     ,[SyncDate]
-    FROM [LineSakorn].[dbo].[NoEntitlement] ",$a));
+    FROM [LineSakorn].[dbo].[NoEntitlement] where IsSuccess = 0 and SyncDate = convert(date,getdate()) order by [ID] asc ",$a);
 
-        print_r($aa);
+
+
+      while ($Result = mssql_fetch_array($Query)) {
+       
+
+
+        print_r($Result);
+
+
+
+
+
+
+
+
+
       }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
       if ($b) {
         echo "Btrue\n";
@@ -29,6 +61,12 @@
         print_r($bb);
 
       }
+
+
+
+
+
+
 
 
 
