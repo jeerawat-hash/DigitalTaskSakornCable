@@ -28,21 +28,43 @@
 
         $Check = mssql_num_rows(mssql_query(" SELECT * FROM [CAS].[dbo].[Card2Platform] where CardNO = '".trim($Result["CardNO"])."' and CUCount = 1 ",$b));
 
-
+        $status = "";
 
         if ($Check == "1") {
           
 
           echo $Result["CardNO"]." ".$Check."\n";
+
+
+          $Cut  = " perl /var/www/html/schedue/digital/cutcard.pl ".$Result["CardNO"]." ";
+
+          shell_exec( $Cut );
+          
+
+          sleep(10);
+
+
+          $Open  = " perl /var/www/html/schedue/digital/opencard.pl ".$Result["CardNO"]." ";
+
+          shell_exec( $Open );
+    
+
+          mssql_query(" update [LineSakorn].[dbo].[NoEntitlement] set IsSuccess = 1 where CardNO = '".$Result["CardNO"]."' ");
+
+          $status = "ย้ำสัญญาณการ์ดสำเร็จ";
+ 
+
+        }else{
+
+
+
+          $status = "ย้ำสัญญาณการ์ดไม่สำเร็จ";
  
 
         }
+ 
 
-
-
-
-
-
+          notify("ย้ำสัญญาณการ์ด\n".$Result["CardNO"]."\nหมายเลขโทรศัพท์ ".$Result["Telephone"]."\n".$status,"X3Ns5J0u2UhKkoirOm20GIvRyFlNtA3R7LJEizfhGQN");
 
 
       }
@@ -50,29 +72,7 @@
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-      if ($b) {
-        echo "Btrue\n";
-        $bb = mssql_fetch_array(mssql_query(" SELECT * FROM [CAS].[dbo].[Card2Platform] ",$b));
-        print_r($bb);
-
-      }
-
-
-
-
+ 
 
 
 
