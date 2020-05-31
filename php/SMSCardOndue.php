@@ -53,7 +53,7 @@
   		#shell_exec(" perl /var/www/html/schedue/digital/notifycard.pl ".$result["CardNO"]." ".$message." ".$result["WriteDate"]." 21:00:00 ");
  
 
-  		mssql_query(" update [LineSakorn].[dbo].[SMSLog] set isOndue = 1 [ID] = '".$result["ID"]."' ");
+  		mssql_query(" update [LineSakorn].[dbo].[SMSLog] set isOndue = 1 where [ID] = '".$result["ID"]."' ");
 		
 
 		//print_r($result);
