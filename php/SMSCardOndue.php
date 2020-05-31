@@ -23,7 +23,7 @@
 
   	while ( $result = mssql_fetch_array($query) ) {
   		
-  		$message = "แจ้งเตือนบิลครบกำหนดกรุณาชำระค่าบริการขออภัยหากชำระแล้ว";
+  		$message = "แจ้งเตือนบิลใกล้ครบกำหนดกรุณาชำระค่าบริการ";
 
   		
   		shell_exec(" perl /var/www/html/schedue/digital/notifycard.pl ".$result["CardNO"]." ".$message." ".date("Y-m-d")." 08:50:00 ");

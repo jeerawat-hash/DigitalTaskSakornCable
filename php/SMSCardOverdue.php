@@ -21,7 +21,7 @@
 
   	while ( $result = mssql_fetch_array($query) ) {
   		
-  		$message = "แจ้งเตือนบิลเกินกำหนดกรุณาชำระค่าบริการขออภัยหากชำระแล้ว";
+  		$message = "แจ้งเตือนบิลครบกำหนดกรุณาชำระค่าบริการขออภัยหากชำระแล้ว";
 
 
   		shell_exec(" perl /var/www/html/schedue/digital/notifycard.pl ".$result["CardNO"]." ".$message." ".date("Y-m-d")." 08:50:00 ");
@@ -51,7 +51,7 @@
   		#shell_exec(" perl /var/www/html/schedue/digital/notifycard.pl ".$result["CardNO"]." ".$message." ".$result["WriteDate"]." 21:00:00 ");
  
 
-  		mssql_query(" update [LineSakorn].[dbo].[SMSLog] set IsOverDue = 1 where  [ID] = '".$result["ID"]."' ");
+  		mssql_query(" update [LineSakorn].[dbo].[SMSLog] set IsOverDue = 1  where  [ID] = '".$result["ID"]."' ");
 
   	}
   
