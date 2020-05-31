@@ -63,7 +63,7 @@
           
 
 
-          mssql_query(" update [LineSakorn].[dbo].[NoEntitlement] set IsSuccess = 1 where ID = '".$Result["ID"]."' ");
+          mssql_query(" update [LineSakorn].[dbo].[NoEntitlement] set IsSuccess = 1 where ID = '".$Result["ID"]."' ",$a);
 
           notify("ย้ำสัญญาณการ์ด\n".$Result["CardNO"]."\nหมายเลขโทรศัพท์ ".$Result["Telephone"]."\n".$status,"X3Ns5J0u2UhKkoirOm20GIvRyFlNtA3R7LJEizfhGQN");
 
