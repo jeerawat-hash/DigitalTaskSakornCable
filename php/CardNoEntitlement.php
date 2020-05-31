@@ -6,67 +6,18 @@
 
       ////////////////////////// begin cut out //////////////////////////////
 
-      mssql_connect('mssqlcon', 'sa', 'Sakorn123');
-      
-      $Query =  mssql_query(" SELECT top 2 [ID]
-      ,[CardNO]
-      ,[Telephone]
-      ,[IsSuccess]
-    ,[SyncDate]
-    FROM [LineSakorn].[dbo].[NoEntitlement] where IsSuccess = 0 and SyncDate = convert(date,getdate()) order by [ID] asc ");
+      $a = mssql_connect('mssqlcon', 'sa', 'Sakorn123');
+       
 
-      
-      while ($Result = mssql_fetch_array($Query)) {
-        
-
-      mssql_connect('mssqlconcas', 'check', 'Sakorn123');
-      
-      $Check = mssql_num_rows(mssql_query(" SELECT * FROM [CAS].[dbo].[Card2Platform] where CardNO = '".trim($Result["CardNO"])."' and CUCount = 1  "));
-
-
-        echo $Check."\n";
-
-
-        /*
-
+      $b = mssql_connect('mssqlconcas', 'check', 'Sakorn123');
  
-
-
-        $Cut  = " perl /var/www/html/schedue/digital/cutcard.pl ".$Result["CardNO"]." ";
-
-        shell_exec( $Cut );
-        
-
-        sleep(10);
-
-
-        $Open  = " perl /var/www/html/schedue/digital/opencard.pl ".$Result["CardNO"]." ";
-
-        shell_exec( $Open );
-  
-
-        mssql_query(" update [LineSakorn].[dbo].[NoEntitlement] set IsSuccess = 1 where CardNO = '".$Result["CardNO"]."' ");
-
-
-
-      */
-
-
-
-
-
-
-
-
-
-
-
-        notify("ย้ำสัญญาณการ์ด\n".$Result["CardNO"]."\nหมายเลขโทรศัพท์ ".$Result["Telephone"],"X3Ns5J0u2UhKkoirOm20GIvRyFlNtA3R7LJEizfhGQN");
-
+      if ($a) {
+        echo "Atrue\n";
       }
 
- 
-
+      if ($b) {
+        echo "Btrue\n";
+      }
 
 
 
