@@ -23,7 +23,7 @@
 
 
         
-        $Check = mssql_num_rows(mssql_query(" SELECT * FROM [CAS].[dbo].[Card2Platform] where CardNO = '".trim($Result["CardNO"])."' and CUCount = 1  "));
+        $Check = mssql_num_rows(mssql_query(" SELECT * FROM [CAS].[dbo].[Card2Platform] where CardNO = '".trim($Result["CardNO"])."' and CUCount = 1  ",$connection2));
 
 
         echo $Check."\n";
