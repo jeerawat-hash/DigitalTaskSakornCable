@@ -6,30 +6,29 @@
 
       ////////////////////////// begin cut out //////////////////////////////
 
-      $connection = mssql_connect('mssqlcon', 'sa', 'Sakorn123');
- 
+      $connection1 = mssql_connect('mssqlcon', 'sa', 'Sakorn123');
+      $connection1 = mssql_connect('mssqlconcas', 'check', 'Sakorn123');
+      
 
       $Query =  mssql_query(" SELECT top 2 [ID]
       ,[CardNO]
       ,[Telephone]
       ,[IsSuccess]
     ,[SyncDate]
-    FROM [LineSakorn].[dbo].[NoEntitlement] where IsSuccess = 0 and SyncDate = convert(date,getdate()) order by [ID] asc ");
+    FROM [LineSakorn].[dbo].[NoEntitlement] where IsSuccess = 0 and SyncDate = convert(date,getdate()) order by [ID] asc ",$connection1);
 
       
       while ($Result = mssql_fetch_array($Query)) {
         
 
 
+        
+        echo "success";
 
 
+        /*
 
-
-
-
-
-
-
+ 
 
 
         $Cut  = " perl /var/www/html/schedue/digital/cutcard.pl ".$Result["CardNO"]." ";
@@ -49,7 +48,7 @@
 
 
 
-
+      */
 
 
 
