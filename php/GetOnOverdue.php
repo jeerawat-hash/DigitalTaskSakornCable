@@ -1,76 +1,20 @@
 <?php 
 
 	ini_set('mssql.charset', 'UTF-8');
-    $connection = mssql_connect('mssqlcon', 'sa', 'Sakorn123');
-
-    mssql_query("delete from [LineBot].[dbo].[SMS_Digital_Ondue] where 1 = 1");
-    
-    $queryOndue =  mssql_query(" select *  from LineBot.dbo.Ondue ");
-
-    while ( $resultdue = mssql_fetch_array($queryOndue) ) {
-  	
+  $connection = mssql_connect('mssqlcon', 'sa', 'Sakorn123');
 
 
-    	$cardno = mssql_fetch_array(mssql_query(" 
-select top 1   a.cardno,b.CustomerID ,c.CustomerName ,  MAX(b.startdate) as startdate 
-from ".$resultdue["DB"].".dbo.customercardlog  a  left outer join ".$resultdue["DB"].".dbo.CustomerCableType b on a.CardNO = b.CardID 
-LEFT OUTER JOIN ".$resultdue["DB"].".dbo.Customer c ON b.CustomerID = c.CustomerID 
-where b.CustomerID = '".$resultdue["CustomerID"]."'
-GROUP BY  a.cardno,b.CustomerID ,c.CustomerName
- ORDER BY  startdate  desc "));
+  mssql_query("  exec linesakorn.dbo.initsms ");
 
-  		mssql_query(" 
-  		INSERT INTO [LineBot].[dbo].[SMS_Digital_Ondue]
-           ([CardNO]
-           ,[DB]
-           ,[CustomerID]
-           ,[PayCode]
-           ,[WriteDate]
-           ,[Status_Send])
-     VALUES
-           ('".$cardno["cardno"]."'
-           ,'".$resultdue["DB"]."'
-           ,'".$resultdue["CustomerID"]."'
-           ,'".$resultdue["PayCode"]."'
-           ,'".date("Y-m-d")."'
-           ,'0')
-            ");  	
+
+  //// ส่งข้อความเตือนก่อน 3วัน ของเมื่อวาน
+  $date3 = mssql_fetch_array(mssql_query(" SELECT count(*) as SMS3D, DATEADD (day, -1,  '".date("Y-m-d")."' ) as OverDate FROM 
+  [LineSakorn].[dbo].[SMSLog] where isOndue = 1 and smsDate = DATEADD (day, -1,  '".date("Y-m-d")."' )  "));
  
-    }
 
-
-
-
-    mssql_query("delete from [LineBot].[dbo].[SMS_Digital_Overdue] where 1 = 1");
-    $queryOverdue =  mssql_query(" select *  from LineBot.dbo.Overdue ");
-
-    while ( $resultOverdue = mssql_fetch_array($queryOverdue) ) {
-  	
-
-    	$cardno = mssql_fetch_array(mssql_query(" 
-select top 1   a.cardno,b.CustomerID ,c.CustomerName ,  MAX(b.startdate) as startdate 
-from ".$resultOverdue["DB"].".dbo.customercardlog  a  left outer join ".$resultOverdue["DB"].".dbo.CustomerCableType b on a.CardNO = b.CardID 
-LEFT OUTER JOIN ".$resultOverdue["DB"].".dbo.Customer c ON b.CustomerID = c.CustomerID 
-where b.CustomerID = '".$resultOverdue["CustomerID"]."'
-GROUP BY  a.cardno,b.CustomerID ,c.CustomerName
- ORDER BY  startdate  desc "));
-
-  		mssql_query(" INSERT INTO [LineBot].[dbo].[SMS_Digital_Overdue]
-           ([CardNO]
-           ,[DB]
-           ,[CustomerID]
-           ,[PayCode]
-           ,[WriteDate]
-           ,[Status_Send])
-     VALUES
-           ('".$cardno["cardno"]."'
-           ,'".$resultOverdue["DB"]."'
-           ,'".$resultOverdue["CustomerID"]."'
-           ,'".$resultOverdue["PayCode"]."'
-           ,'".date("Y-m-d")."' 
-           ,'0') ");  	
- 
-    }
+  //// ส่งข้อความเตือนบิลเกิน ของเมื่อวาน
+  $dateOver = mssql_fetch_array(mssql_query(" SELECT count(*) as SMSOver, DATEADD (day, -1,  '".date("Y-m-d")."' ) as OverDate FROM 
+  [LineSakorn].[dbo].[SMSLog] where IsOverDue = 1 and OverDueDate = DATEADD (day, -1,  '".date("Y-m-d")."' ) "));
 
 
 

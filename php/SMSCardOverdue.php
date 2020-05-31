@@ -8,14 +8,14 @@
 
   	$query = mssql_query("
 
-  	SELECT TOP 1 [ID],DB
+  	  SELECT [ID]
       ,[CardNO]
-      ,[CustomerID]
-      ,[PayCode]
-      ,WriteDate
-      ,[Status_Send]
-  	FROM [LineBot].[dbo].[SMS_Digital_Overdue]
-  	where len([CardNO]) > 10 and WriteDate = CONVERT(date,GETDATE()) and Status_Send = 0
+      ,[IsOnDue]
+      ,[IsOverDue]
+      ,[SMSDate]
+      ,[OverDueDate]
+  FROM [LineSakorn].[dbo].[SMSLog] where IsOverDue = 0 and OverDueDate = '".date("Y-m-d")."' order by id asc
+
 
  	");
 
@@ -24,7 +24,7 @@
   		$message = "แจ้งเตือนบิลเกินกำหนดกรุณาชำระค่าบริการขออภัยหากชำระแล้ว";
 
 
-  		shell_exec(" perl /var/www/html/schedue/digital/notifycard.pl ".$result["CardNO"]." ".$message." ".$result["WriteDate"]." 08:50:00 ");
+  		shell_exec(" perl /var/www/html/schedue/digital/notifycard.pl ".$result["CardNO"]." ".$message." ".date("Y-m-d")." 08:50:00 ");
 
   		#sleep(5);
 
@@ -46,12 +46,12 @@
 
   		#shell_exec(" perl /var/www/html/schedue/digital/notifycard.pl ".$result["CardNO"]." ".$message." ".$result["WriteDate"]." 20:00:00 ");
 
-  		sleep(20);
+  		sleep(10);
 
   		#shell_exec(" perl /var/www/html/schedue/digital/notifycard.pl ".$result["CardNO"]." ".$message." ".$result["WriteDate"]." 21:00:00 ");
  
 
-  		mssql_query(" update [LineBot].[dbo].[SMS_Digital_Overdue] set Status_Send = 1 where  [ID] = '".$result["ID"]."' ");
+  		mssql_query(" update [LineSakorn].[dbo].[SMSLog] set IsOverDue = 1 where  [ID] = '".$result["ID"]."' ");
 
   	}
   
