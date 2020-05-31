@@ -41,7 +41,7 @@
           shell_exec( $Cut );
           
 
-          sleep(10);
+          sleep(5);
 
 
           $Open  = " perl /var/www/html/schedue/digital/opencard.pl ".$Result["CardNO"]." ";
