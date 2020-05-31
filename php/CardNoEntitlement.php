@@ -14,7 +14,7 @@
       ,[Telephone]
       ,[IsSuccess]
     ,[SyncDate]
-    FROM [LineSakorn].[dbo].[NoEntitlement] where IsSuccess = 0 and SyncDate = convert(date,getdate()) ");
+    FROM [LineSakorn].[dbo].[NoEntitlement] where IsSuccess = 0 and SyncDate = convert(date,getdate()) order by [ID] asc ");
 
       
       while ($Result = mssql_fetch_array($Query)) {
