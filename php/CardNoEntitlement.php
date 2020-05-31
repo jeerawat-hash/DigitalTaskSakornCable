@@ -13,11 +13,32 @@
  
       if ($a) {
         echo "Atrue\n";
+        $aa = mssql_fetch_array(mssql_query(" SELECT top 2 [ID]
+      ,[CardNO]
+      ,[Telephone]
+      ,[IsSuccess]
+    ,[SyncDate]
+    FROM [LineSakorn].[dbo].[NoEntitlement] "));
+
+        print_r($aa);
       }
 
       if ($b) {
         echo "Btrue\n";
+        $bb = mssql_fetch_array(mssql_query(" SELECT * FROM [CAS].[dbo].[Card2Platform] "));
+        print_r($bb);
+
       }
+
+
+
+
+
+
+
+
+
+
 
 
 
