@@ -65,7 +65,7 @@
 
 	if ( mssql_num_rows($query_str) != 0 ) {
 		
-		notify($message_notify,$token);
+		//notify($message_notify,$token);
 
 	}
 
