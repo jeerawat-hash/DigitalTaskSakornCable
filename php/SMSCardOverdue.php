@@ -8,7 +8,7 @@
 
   	$query = mssql_query("
 
-  	  SELECT [ID]
+  	  SELECT top 2 [ID]
       ,[CardNO]
       ,[IsOnDue]
       ,[IsOverDue]
