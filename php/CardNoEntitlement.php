@@ -31,7 +31,7 @@
 
 
 
-        echo $Result["CardNO"]." ".$Check."\n"
+        echo $Result["CardNO"]." ".$Check."\n";
 
 
 
