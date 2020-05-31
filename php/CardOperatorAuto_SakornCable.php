@@ -18,7 +18,7 @@
 	}
 	 
 
-	$query_str = mssql_query(" select top 3 'SakornCable' as DB,UserID,RowOrder,CardNO,IsOpenCard,IsUpdateCASAlready from SakornCable.dbo.CustomerCardLog where IsUpdateCASAlready = 0 order by RowOrder asc ");
+	$query_str = mssql_query(" select top 100 'SakornCable' as DB,UserID,RowOrder,CardNO,IsOpenCard,IsUpdateCASAlready from SakornCable.dbo.CustomerCardLog where IsUpdateCASAlready = 0 order by RowOrder asc ");
 
 
 

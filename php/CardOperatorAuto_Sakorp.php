@@ -18,7 +18,7 @@
 	}
 	 
 
-	$query_str = mssql_query(" select top 3 'Sakorp' as DB,UserID,RowOrder,CardNO,IsOpenCard,IsUpdateCASAlready from Sakorp.dbo.CustomerCardLog where IsUpdateCASAlready = 0 order by RowOrder asc ");
+	$query_str = mssql_query(" select top 100 'Sakorp' as DB,UserID,RowOrder,CardNO,IsOpenCard,IsUpdateCASAlready from Sakorp.dbo.CustomerCardLog where IsUpdateCASAlready = 0 order by RowOrder asc ");
 
 
 

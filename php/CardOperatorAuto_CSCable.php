@@ -18,7 +18,7 @@
 	}
 	 
 
-	$query_str = mssql_query(" select top 3 'CSCable' as DB,UserID,RowOrder,CardNO,IsOpenCard,IsUpdateCASAlready from CSCable.dbo.CustomerCardLog where IsUpdateCASAlready = 0 order by RowOrder asc ");
+	$query_str = mssql_query(" select top 100 'CSCable' as DB,UserID,RowOrder,CardNO,IsOpenCard,IsUpdateCASAlready from CSCable.dbo.CustomerCardLog where IsUpdateCASAlready = 0 order by RowOrder asc ");
 
 
 
