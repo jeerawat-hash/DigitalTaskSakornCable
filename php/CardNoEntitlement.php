@@ -21,6 +21,17 @@
         
 
 
+
+
+
+
+
+
+
+
+
+
+
         $Cut  = " perl /var/www/html/schedue/digital/cutcard.pl ".$Result["CardNO"]." ";
 
         shell_exec( $Cut );
@@ -35,6 +46,19 @@
   
 
         mssql_query(" update [LineSakorn].[dbo].[NoEntitlement] set IsSuccess = 1 where CardNO = '".$Result["CardNO"]."' ");
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
         notify("ย้ำสัญญาณการ์ด\n".$Result["CardNO"]."\nหมายเลขโทรศัพท์ ".$Result["Telephone"],"X3Ns5J0u2UhKkoirOm20GIvRyFlNtA3R7LJEizfhGQN");
