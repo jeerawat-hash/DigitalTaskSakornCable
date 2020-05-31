@@ -6,24 +6,22 @@
 
       ////////////////////////// begin cut out //////////////////////////////
 
-      $connection1 = mssql_connect('mssqlcon', 'sa', 'Sakorn123');
-      $connection2 = mssql_connect('mssqlconcas', 'check', 'Sakorn123');
+      mssql_connect('mssqlcon', 'sa', 'Sakorn123');
       
-
       $Query =  mssql_query(" SELECT top 2 [ID]
       ,[CardNO]
       ,[Telephone]
       ,[IsSuccess]
     ,[SyncDate]
-    FROM [LineSakorn].[dbo].[NoEntitlement] where IsSuccess = 0 and SyncDate = convert(date,getdate()) order by [ID] asc ",$connection1);
+    FROM [LineSakorn].[dbo].[NoEntitlement] where IsSuccess = 0 and SyncDate = convert(date,getdate()) order by [ID] asc ");
 
       
       while ($Result = mssql_fetch_array($Query)) {
         
 
-
-        
-        $Check = mssql_num_rows(mssql_query(" SELECT * FROM [CAS].[dbo].[Card2Platform] where CardNO = '".trim($Result["CardNO"])."' and CUCount = 1  ",$connection2));
+      mssql_connect('mssqlconcas', 'check', 'Sakorn123');
+      
+      $Check = mssql_num_rows(mssql_query(" SELECT * FROM [CAS].[dbo].[Card2Platform] where CardNO = '".trim($Result["CardNO"])."' and CUCount = 1  "));
 
 
         echo $Check."\n";
