@@ -30,9 +30,13 @@
 
 
 
+        if ($Check == "1") {
+          
 
-        echo $Result["CardNO"]." ".$Check."\n";
+          echo $Result["CardNO"]." ".$Check."\n";
+ 
 
+        }
 
 
 
