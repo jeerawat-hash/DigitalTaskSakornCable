@@ -217,7 +217,7 @@
                   while ($InternetResult = mssql_fetch_array($InternetQuery)) {
 
 
-                      if ($InternetResult["StopDate"] != "") {
+                      if ($InternetResult["StopDate"] == "") {
 
 
                         if ($InternetResult["TypeNET"] == "INET") {
@@ -234,7 +234,7 @@
 
 
                       }else
-                      if ($InternetResult["StopDate"] == "") {
+                      if ($InternetResult["StopDate"] != "") {
 
 
                         if ($InternetResult["TypeNET"] == "INET") {
