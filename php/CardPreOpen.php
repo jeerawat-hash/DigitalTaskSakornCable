@@ -5,6 +5,8 @@
 
 
       ////////////////////////// begin cut out //////////////////////////////
+      
+      $mysql = mysql_connect("172.168.0.24","sak0rn","sak0rncable");
 
       $connection = mssql_connect('mssqlcon', 'sa', 'Sakorn123');
 
@@ -22,55 +24,55 @@
             
             select 'Bangchalong' as DB,a.CardID,b.CustomerID,b.Telephone,b.CustomerName,b.Soi from Bangchalong.dbo.customercabletype a
             join Bangchalong.dbo.Customer b on a.CustomerID = b.CustomerID
-            where b.Telephone = @Telephone and CardID != '' and b.Suspend = 0
+            where b.Telephone = @Telephone and CardID != '' 
             
             union 
             
             select 'Flat' as DB,a.CardID,b.CustomerID,b.Telephone,b.CustomerName,b.Soi from Flat.dbo.customercabletype a
             join Flat.dbo.Customer b on a.CustomerID = b.CustomerID
-            where b.Telephone = @Telephone and CardID != '' and b.Suspend = 0
+            where b.Telephone = @Telephone and CardID != '' 
             
             union 
             
             select 'CSCable' as DB,a.CardID,b.CustomerID,b.Telephone,b.CustomerName,b.Soi from CSCable.dbo.customercabletype a
             join CSCable.dbo.Customer b on a.CustomerID = b.CustomerID
-            where b.Telephone = @Telephone and CardID != '' and b.Suspend = 0
+            where b.Telephone = @Telephone and CardID != '' 
             
             union 
             
             select 'Sahamit' as DB,a.CardID,b.CustomerID,b.Telephone,b.CustomerName,b.Soi from Sahamit.dbo.customercabletype a
             join Sahamit.dbo.Customer b on a.CustomerID = b.CustomerID
-            where b.Telephone = @Telephone and CardID != '' and b.Suspend = 0
+            where b.Telephone = @Telephone and CardID != '' 
             
             union 
             
             select 'SakornCable' as DB,a.CardID,b.CustomerID,b.Telephone,b.CustomerName,b.Soi from SakornCable.dbo.customercabletype a
             join SakornCable.dbo.Customer b on a.CustomerID = b.CustomerID
-            where b.Telephone = @Telephone and CardID != '' and b.Suspend = 0
+            where b.Telephone = @Telephone and CardID != '' 
             
             union 
             
             select 'SakornNetwork' as DB,a.CardID,b.CustomerID,b.Telephone,b.CustomerName,b.Soi from SakornNetwork.dbo.customercabletype a
             join SakornNetwork.dbo.Customer b on a.CustomerID = b.CustomerID
-            where b.Telephone = @Telephone and CardID != '' and b.Suspend = 0
+            where b.Telephone = @Telephone and CardID != '' 
             
             union 
             
             select 'SakornNewBusiness' as DB,a.CardID,b.CustomerID,b.Telephone,b.CustomerName,b.Soi from SakornNewBusiness.dbo.customercabletype a
             join SakornNewBusiness.dbo.Customer b on a.CustomerID = b.CustomerID
-            where b.Telephone = @Telephone and CardID != '' and b.Suspend = 0
+            where b.Telephone = @Telephone and CardID != '' 
             
             union 
             
             select 'Sakorp' as DB,a.CardID,b.CustomerID,b.Telephone,b.CustomerName,b.Soi from Sakorp.dbo.customercabletype a
             join Sakorp.dbo.Customer b on a.CustomerID = b.CustomerID
-            where b.Telephone = @Telephone and CardID != '' and b.Suspend = 0
+            where b.Telephone = @Telephone and CardID != '' 
             
             union 
             
             select 'SRN' as DB,a.CardID,b.CustomerID,b.Telephone,b.CustomerName,b.Soi from SRN.dbo.customercabletype a
             join SRN.dbo.Customer b on a.CustomerID = b.CustomerID
-            where b.Telephone = @Telephone and CardID != '' and b.Suspend = 0
+            where b.Telephone = @Telephone and CardID != '' 
 
 
             ");
@@ -80,6 +82,7 @@
 
                   $Report = "";
                   $Report_Dupcate = "";
+                  $Report_Internet = "";
 
                   ################## Card Operate ######################
                   while ($Card = mssql_fetch_array($CardStr)) {
@@ -217,6 +220,41 @@
 
 
 
+                  ################### Internet Operate #################
+
+                  $InternetQuery = mssql_query(" exec LineSakorn.dbo.InternetCheck '".$Telephone["Telephone"]."' ");
+
+                  while ($InternetResult = mssql_fetch_array($InternetQuery)) {
+                    
+
+                    if ($InternetResult["TypeNET"] == "INET") {
+                      
+
+                      $url = "https://bb.inet-th.net/index.php/api/update";
+                      Operation($url,$InternetResult["INetID"],"active");
+
+
+                    }else
+                    if ($InternetResult["TypeNET"] == "Sakorn") {
+                      
+
+
+                      mysql_query(" update  radius.radreply set value = 'Online'  WHERE  username = '".$InternetResult["PPOE"]."'  ");
+
+
+
+
+                    }
+ 
+                      $Report_Internet .= "\n".$InternetResult["PPOE"];
+
+
+                  }
+ 
+                  ################### Internet Operate #################
+
+ 
+
 
               ############################ update log #############################
 
@@ -224,8 +262,8 @@
               mssql_query(" update [LineSakorn].[dbo].[PreOpenCard] set IsOpenCard = 1 , IsSuccess = 1 where ID = '".$Telephone["ID"]."' ");
             
 
-              $message = "ดำเนินการ ต่อการ์ดชั่วคราว\n".$Report;
-              $message2 = "พยายามต่อการ์ดชั่วคราว ต่อการ์ดชั่วคราว\n".$Report;
+              $message = "ดำเนินการ ต่อการ์ดและเน็ตชั่วคราว\n".$Report.$Report_Internet;
+              $message2 = "พยายามต่อการ์ดชั่วคราว ต่อการ์ดและเน็ตชั่วคราว\n".$Report;
 
               if ($Report != "") {
 
@@ -273,6 +311,25 @@ function notify($message,$token){
         curl_setopt( $con, CURLOPT_RETURNTRANSFER, 1); 
         $result = curl_exec( $con ); 
 
+}
+
+
+function Operation($url,$clientid,$status)
+{
+    
+  $ch = curl_init();
+
+  curl_setopt($ch, CURLOPT_URL,$url);
+    curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "POST");
+  curl_setopt($ch, CURLOPT_POSTFIELDS,
+              "access_code=ZWaFcOV3yILx6DjmRWs029EzdYQgy0GdmoHA779tAK4vz8FqP55kOtivxounk11erUF7NsplanMKDivQVJL1pxIPwbkNEnBJSqCsfwXZcGZfXrSeTdezPt3CpUHYYR22fQjc6iGWwq8M&id=".$clientid."&status=".$status."&name=&surname=&mac_address&username&password&site_id=97&package_id=&type=");
+  curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+
+  $result = curl_exec($ch);
+
+  curl_close ($ch);
+
+  return $result;
 }
 
 

@@ -5,6 +5,7 @@
 
 
       ////////////////////////// begin cut out //////////////////////////////
+      $mysql = mysql_connect("172.168.0.24","sak0rn","sak0rncable");
 
       $connection = mssql_connect('mssqlcon', 'sa', 'Sakorn123');
 
@@ -83,6 +84,8 @@
 
 
                   $Report = "";
+                  $Report_Internet = "";
+
 
                   ################## Card Operate ######################
                   while ($Card = mssql_fetch_array($CardStr)) {
@@ -204,6 +207,64 @@
 
  
 
+
+
+
+                  ################### Internet Operate #################
+
+                  $InternetQuery = mssql_query(" exec LineSakorn.dbo.InternetCheck '".$Telephone["Telephone"]."' ");
+
+                  while ($InternetResult = mssql_fetch_array($InternetQuery)) {
+
+
+                      if ($InternetResult["Suspend"] == 0) {
+
+
+                        if ($InternetResult["TypeNET"] == "INET") {
+                          
+                          $url = "https://bb.inet-th.net/index.php/api/update";
+                          Operation($url,$InternetResult["INetID"],"active");
+
+                        }else
+                        if ($InternetResult["TypeNET"] == "Sakorn") {
+                          
+                          mysql_query(" update  radius.radreply set value = 'Online'  WHERE  username = '".$InternetResult["PPOE"]."'  ");
+
+                        }
+
+
+                      }else
+                      if ($InternetResult["Suspend"] == 1) {
+
+
+                        if ($InternetResult["TypeNET"] == "INET") {
+                          
+                          $url = "https://bb.inet-th.net/index.php/api/update";
+                          Operation($url,$InternetResult["INetID"],"suspend");
+
+                        }else
+                        if ($InternetResult["TypeNET"] == "Sakorn") {
+                          
+                          mysql_query(" update  radius.radreply set value = 'Expire'  WHERE  username = '".$InternetResult["PPOE"]."'  ");
+
+                        }
+
+
+                      }
+                      
+                    
+                      $Report_Internet .= "\n".$InternetResult["PPOE"];
+
+
+                  }
+ 
+                  ################### Internet Operate #################
+
+
+  
+
+
+
               ############################ update log #############################
 
 
@@ -247,6 +308,24 @@ function notify($message,$token){
         curl_setopt( $con, CURLOPT_RETURNTRANSFER, 1); 
         $result = curl_exec( $con ); 
 
+}
+
+function Operation($url,$clientid,$status)
+{
+    
+  $ch = curl_init();
+
+  curl_setopt($ch, CURLOPT_URL,$url);
+    curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "POST");
+  curl_setopt($ch, CURLOPT_POSTFIELDS,
+              "access_code=ZWaFcOV3yILx6DjmRWs029EzdYQgy0GdmoHA779tAK4vz8FqP55kOtivxounk11erUF7NsplanMKDivQVJL1pxIPwbkNEnBJSqCsfwXZcGZfXrSeTdezPt3CpUHYYR22fQjc6iGWwq8M&id=".$clientid."&status=".$status."&name=&surname=&mac_address&username&password&site_id=97&package_id=&type=");
+  curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+
+  $result = curl_exec($ch);
+
+  curl_close ($ch);
+
+  return $result;
 }
 
 
