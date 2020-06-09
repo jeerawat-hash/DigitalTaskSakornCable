@@ -217,7 +217,7 @@
                   while ($InternetResult = mssql_fetch_array($InternetQuery)) {
 
 
-                      if ($InternetResult["Suspend"] == 0) {
+                      if ($InternetResult["StopDate"] != "") {
 
 
                         if ($InternetResult["TypeNET"] == "INET") {
@@ -234,7 +234,7 @@
 
 
                       }else
-                      if ($InternetResult["Suspend"] == 1) {
+                      if ($InternetResult["StopDate"] == "") {
 
 
                         if ($InternetResult["TypeNET"] == "INET") {
@@ -252,7 +252,7 @@
 
                       }
                       
-                    
+
                       $Report_Internet .= "\n".$InternetResult["PPOE"];
 
 
