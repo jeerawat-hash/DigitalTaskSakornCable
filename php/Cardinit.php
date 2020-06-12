@@ -6,13 +6,19 @@
 
       ////////////////////////// begin cut out //////////////////////////////
 
-      $connection = mssql_connect('mssqlcon', 'sa', 'Sakorn123');
+      $a = mssql_connect('mssqlcon', 'sa', 'Sakorn123');
+       
+
+      $b = mssql_connect('mssqlconcas', 'check', 'Sakorn123');
+
+
+      //$connection = mssql_connect('mssqlcon', 'sa', 'Sakorn123');
 
       
       $getAllCard_str = mssql_query( " SELECT top 10 [ID]
             ,[CardNO]
             ,[Is_Init]
-        FROM [WebSakorn].[dbo].[CardInit] where Is_Init = 0 order by ID " );
+        FROM [WebSakorn].[dbo].[CardInit] where Is_Init = 0 order by ID ",$a);
 
 
       $Report = "";
@@ -98,7 +104,7 @@
               ) SakornGroup ORDER BY StopDate desc
 
                
-                "); 
+                ",$a); 
 
             
             $CardStatus = mssql_num_rows($Card_str);
@@ -107,22 +113,36 @@
             sleep(1);
 
             if ($CardStatus == 0) {
-                ############ cut card number ##############
 
-                $string  = " perl /var/www/html/schedue/digital/cutcard.pl ".$resultCard["CardNO"]." ";
+ 
+                $CheckStatusCardCas = mssql_num_rows( mssql_query(" SELECT [CardNO],*  FROM [CAS].[dbo].[Card2Platform] where CUCount = 1 and CardNo = '".$resultCard["CardNO"]."' ",$b) );
 
-                $exe =  shell_exec( $string );
 
-                ############ cut card number ##############
+                if ($CheckStatusCardCas != 0) {
+                  
+                  ############ cut card number ##############
+
+                  $string  = " perl /var/www/html/schedue/digital/cutcard.pl ".$resultCard["CardNO"]." ";
+
+                  $exe =  shell_exec( $string );
+
+                  ############ cut card number ##############
+                  $Report .= "ตัด ".$resultCard["CardNO"]."\n";
+
+                }
+
+
                 $StatusRemrk = "FreeCard";
+ 
 
-                $Report .= "ตัด ".$resultCard["CardNO"]."\n";
 
             }else{
 
 
 
                 $StatusRemrk = "NormalCard";
+
+
             }
 
   
@@ -134,10 +154,10 @@
       }
 
 
-      $ReportAll = "SyncCardStatus by CasServer....\n".$Report;
+      $ReportAll = "เคลียร์ค่าและตัดสัญญาณการ์ดส่วนเกินจากกุญแจ....\n".$Report;
 
       if ( $Report != "" ) {
-        //notify($ReportAll,"Ahlxzwfwdnv7CjVPMC3s6fdNPtOEH49AeQkhF4CUfKI");
+        notify($ReportAll,"Ahlxzwfwdnv7CjVPMC3s6fdNPtOEH49AeQkhF4CUfKI");
       }
 
       
