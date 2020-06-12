@@ -148,7 +148,7 @@
   
 
             mssql_query("update [WebSakorn].[dbo].[CardInit] set [Is_Init] =  1 , Remark = '".$StatusRemrk."' 
-                              where CardNo = '".$resultCard["CardNO"]."' ");
+                              where CardNo = '".$resultCard["CardNO"]."' ",$a);
 
   
       }
