@@ -15,7 +15,7 @@
       //$connection = mssql_connect('mssqlcon', 'sa', 'Sakorn123');
 
       
-      $getAllCard_str = mssql_query( " SELECT top 10 [ID]
+      $getAllCard_str = mssql_query( " SELECT top 100 [ID]
             ,[CardNO]
             ,[Is_Init]
         FROM [WebSakorn].[dbo].[CardInit] where Is_Init = 0 order by ID ",$a);
@@ -110,7 +110,7 @@
             $CardStatus = mssql_num_rows($Card_str);
             $StatusRemrk = "";
 
-            sleep(1);
+            //sleep(1);
 
             if ($CardStatus == 0) {
 
