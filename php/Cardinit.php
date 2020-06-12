@@ -127,7 +127,13 @@
                   $exe =  shell_exec( $string );
 
                   ############ cut card number ##############
-                  $Report .= "ตัด ".$resultCard["CardNO"]."\n";
+                  $Report = "ตัด ".$resultCard["CardNO"]."\n";
+                  $ReportAll = "เคลียร์ค่าและตัดสัญญาณการ์ดส่วนเกินจากกุญแจ....\n".$Report;
+
+                  if ( $Report != "" ) {
+                    notify($ReportAll,"Ahlxzwfwdnv7CjVPMC3s6fdNPtOEH49AeQkhF4CUfKI");
+                  }
+                  
 
                 }
 
@@ -154,11 +160,7 @@
       }
 
 
-      $ReportAll = "เคลียร์ค่าและตัดสัญญาณการ์ดส่วนเกินจากกุญแจ....\n".$Report;
-
-      if ( $Report != "" ) {
-        notify($ReportAll,"Ahlxzwfwdnv7CjVPMC3s6fdNPtOEH49AeQkhF4CUfKI");
-      }
+      
 
       
       
