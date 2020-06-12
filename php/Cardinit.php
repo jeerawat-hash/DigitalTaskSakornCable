@@ -110,7 +110,7 @@
             $CardStatus = mssql_num_rows($Card_str);
             $StatusRemrk = "";
 
-            //sleep(1);
+            sleep(1);
 
             if ($CardStatus == 0) {
 
@@ -133,7 +133,7 @@
                   if ( $Report != "" ) {
                     notify($ReportAll,"Ahlxzwfwdnv7CjVPMC3s6fdNPtOEH49AeQkhF4CUfKI");
                   }
-                  
+
 
                 }
 
