@@ -7,7 +7,7 @@
 
   my ($card,$message) = @ARGV;
 
-  $req->header('Cookie' => 'JSESSIONID=9D102894E1CD75580E623DEF5A9C2DB0');
+  $req->header('Cookie' => 'JSESSIONID=C50EB36C5270AB973E77E578641CECF1');
 
   $req->content_type('application/x-www-form-urlencoded');
   $req->content('accreditType=BUYPRO_0&duration=&message=&operate=accredit&position=0&productIds=81&scCode='.$card.'&title=');
