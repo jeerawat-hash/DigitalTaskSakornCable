@@ -92,65 +92,56 @@
                           SELECT * FROM
                           (
                           select DB='SakornCable',a.customerid,b.CardID ,a.stopdate from
-                          (select * from SakornCable.dbo.Customer where StopDate is null
-                                          and CustomerID in (select CustomerID from SakornCable.dbo.customercabletype where CardID = @sCardNo   )
+                          (select * from SakornCable.dbo.Customer where CustomerID in (select CustomerID from SakornCable.dbo.customercabletype where CardID = @sCardNo   )
                            ) a    Left outer join SakornCable.dbo.customercabletype b
                           on a.customerid = b.customerid   AND b.CardID = @sCardNo
 
                           UNION
 
                           select DB='SakornNetwork',a.customerid,b.CardID ,a.stopdate from
-                          (select * from SakornNetwork.dbo.Customer where StopDate is   null
-                                          and CustomerID in (select CustomerID from SakornNetwork.dbo.customercabletype where CardID = @sCardNo   )
+                          (select * from SakornNetwork.dbo.Customer where  CustomerID in (select CustomerID from SakornNetwork.dbo.customercabletype where CardID = @sCardNo   )
                            ) a    Left outer join SakornNetwork.dbo.customercabletype b
                           on a.customerid = b.customerid   AND b.CardID = @sCardNo
                           UNION
                           select DB='Sakorp',a.customerid,b.CardID ,a.stopdate from
-                          (select * from Sakorp.dbo.Customer where StopDate is   null
-                                          and CustomerID in (select CustomerID from Sakorp.dbo.customercabletype where CardID = @sCardNo   )
+                          (select * from Sakorp.dbo.Customer where  CustomerID in (select CustomerID from Sakorp.dbo.customercabletype where CardID = @sCardNo   )
                            ) a    Left outer join Sakorp.dbo.customercabletype b
                           on a.customerid = b.customerid   AND b.CardID = @sCardNo
 
                           UNION
                           select DB='CSCable',a.customerid,b.CardID ,a.stopdate from
-                          (select * from CSCable.dbo.Customer where StopDate is   null
-                                          and CustomerID in (select CustomerID from CSCable.dbo.customercabletype where CardID = @sCardNo   )
+                          (select * from CSCable.dbo.Customer where  CustomerID in (select CustomerID from CSCable.dbo.customercabletype where CardID = @sCardNo   )
                            ) a    Left outer join CSCable.dbo.customercabletype b
                           on a.customerid = b.customerid   AND b.CardID = @sCardNo
                           UNION
                           select  DB='Sahamit',a.customerid,b.CardID ,a.stopdate from
-                          (select * from Sahamit.dbo.Customer where StopDate is   null
-                                          and CustomerID in (select CustomerID from Sahamit.dbo.customercabletype where CardID = @sCardNo   )
+                          (select * from Sahamit.dbo.Customer where  CustomerID in (select CustomerID from Sahamit.dbo.customercabletype where CardID = @sCardNo   )
                            ) a    Left outer join Sahamit.dbo.customercabletype b
                           on a.customerid = b.customerid   AND b.CardID = @sCardNo
                           UNION
 
                        
                           select DB='Bangchalong',a.customerid,b.CardID ,a.stopdate from
-                          (select * from Bangchalong.dbo.Customer where StopDate is   null
-                                          and CustomerID in (select CustomerID from Bangchalong.dbo.customercabletype where CardID = @sCardNo   )
+                          (select * from Bangchalong.dbo.Customer where CustomerID in (select CustomerID from Bangchalong.dbo.customercabletype where CardID = @sCardNo   )
                            ) a    Left outer join Bangchalong.dbo.customercabletype b
                           on a.customerid = b.customerid  AND b.CardID = @sCardNo  
 
                           UNION
 
                           select DB='Flat',a.customerid,b.CardID ,a.stopdate from
-                          (select * from Flat.dbo.Customer where StopDate is   null
-                                          and CustomerID in (select CustomerID from Flat.dbo.customercabletype where CardID = @sCardNo   )
+                          (select * from Flat.dbo.Customer where  CustomerID in (select CustomerID from Flat.dbo.customercabletype where CardID = @sCardNo   )
                            ) a    Left outer join Flat.dbo.customercabletype b
                           on a.customerid = b.customerid   AND b.CardID = @sCardNo
 
                           UNION
                           select DB='SRN',a.customerid,b.CardID ,a.stopdate from
-                          (select * from SRN.dbo.Customer where StopDate is   null
-                                          and CustomerID in (select CustomerID from SRN.dbo.customercabletype where CardID = @sCardNo   )
+                          (select * from SRN.dbo.Customer where CustomerID in (select CustomerID from SRN.dbo.customercabletype where CardID = @sCardNo   )
                            ) a    Left outer join SRN.dbo.customercabletype b
                           on a.customerid = b.customerid   AND b.CardID = @sCardNo
 
                           UNION
                           select DB='SakornNewBusiness',a.customerid,b.CardID ,a.stopdate from
-                          (select * from SakornNewBusiness.dbo.Customer where StopDate is   null
-                                          and CustomerID in (select CustomerID from SakornNewBusiness.dbo.customercabletype where CardID = @sCardNo   )
+                          (select * from SakornNewBusiness.dbo.Customer where  CustomerID in (select CustomerID from SakornNewBusiness.dbo.customercabletype where CardID = @sCardNo   )
                            ) a    Left outer join SakornNewBusiness.dbo.customercabletype b
                           on a.customerid = b.customerid   AND b.CardID = @sCardNo
 
