@@ -28,4 +28,4 @@
   }
   
 
-# perl /var/www/html/schedue/nex/opencard.pl 9980003000000773
+# perl /var/www/html/schedue/nex/opencard.pl 0006901 304ec30f5c92
