@@ -18,7 +18,9 @@
 	}
 	 
 
-	$query_str = mssql_query(" select top 3 'SakornNewBusiness' as DB,UserID,RowOrder,CardNO,IsOpenCard,IsUpdateCASAlready from SakornNewBusiness.dbo.CustomerCardLog where IsUpdateCASAlready = 0 order by RowOrder asc ");
+	$query_str = mssql_query(" 
+ select top 3 'SakornNewBusiness' as DB,UserID,RowOrder,CardNO,(select MACAddress from SakornNewBusiness.dbo.CustomerCableType where CardID = CardNO) as MacAddress
+ ,IsOpenCard,IsUpdateCASAlready from SakornNewBusiness.dbo.CustomerCardLog where IsUpdateCASAlready = 0 order by RowOrder asc ");
 
 
 
@@ -33,13 +35,7 @@
 			
 
 
-
-			$string  = " perl /var/www/html/schedue/digital/opencard.pl ".$result["CardNO"]." ";
-
-
-
-
-
+			$string  = " perl /var/www/html/schedue/nex/opencard.pl ".$result["CardNO"]." ".$result["MacAddress"]." ";
 
 
 
@@ -47,19 +43,13 @@
 
 			$status_auto = "ต่อ";
             //$token = "xwIy9YnB1ByZfiFz9dS4Pe82hLw9o5nRnQdmqnXlBBZ";
-            $token = "X3Ns5J0u2UhKkoirOm20GIvRyFlNtA3R7LJEizfhGQN";
+            $token = "Ahlxzwfwdnv7CjVPMC3s6fdNPtOEH49AeQkhF4CUfKI";
 
 		}else
 		if ( $result["IsOpenCard"] == "0" ) {
 			
-
-			$string  = " perl /var/www/html/schedue/digital/cutcard.pl ".$result["CardNO"]." ";
-
-
-
-
-
-
+		
+			$string  = " perl /var/www/html/schedue/nex/cutcard.pl ".$result["CardNO"]." ".$result["MacAddress"]." ";
 
 
 			$exe =  shell_exec( $string );
