@@ -32,7 +32,16 @@
 		if ( $result["IsOpenCard"] == "1" ) {
 			
 
+
+
 			$string  = " perl /var/www/html/schedue/digital/opencard.pl ".$result["CardNO"]." ";
+
+
+
+
+
+
+
 
 			$exe =  shell_exec( $string );
 
@@ -45,6 +54,13 @@
 			
 
 			$string  = " perl /var/www/html/schedue/digital/cutcard.pl ".$result["CardNO"]." ";
+
+
+
+
+
+
+
 
 			$exe =  shell_exec( $string );
  			
