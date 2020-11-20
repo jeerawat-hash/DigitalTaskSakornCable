@@ -34,10 +34,7 @@
 		if ( $result["IsOpenCard"] == "1" ) {
 			
 
-
 			$string  = " perl /var/www/html/schedue/nex/opencard.pl ".$result["CardNO"]." ".$result["MacAddress"]." ";
-
-
 
 			$exe =  shell_exec( $string );
 
