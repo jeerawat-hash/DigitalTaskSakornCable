@@ -20,7 +20,7 @@
   if ($res->is_success) {
  
 
-      print $res->content;
+      #print $res->content;
 
 
   } else {
