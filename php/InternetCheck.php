@@ -11,7 +11,7 @@
 
       
       $query = mssql_query( " 
-       SELECT TOP 1 [ID]
+       SELECT TOP 10 [ID]
       ,[PPPOE]
       ,[InetID]
       ,[SakornID]
@@ -23,6 +23,8 @@
 
 
       while ($result = mssql_fetch_array($query)) {
+
+        sleep(1);
 
         $TYPE = ($result["InetID"] != "") ? "INET" : "Sakorn" ;
         //echo $result["PPPOE"]." ".$TYPE."<br>";
