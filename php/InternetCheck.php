@@ -16,7 +16,7 @@
       ,[InetID]
       ,[SakornID]
       ,[is_Check]
-  FROM [InternetSakorn].[dbo].[InternetCheckLog] where is_Check = 0
+  FROM [InternetSakorn].[dbo].[InternetCheckLog] where is_Check = 0 and InetID is not null
 
      " );
 
