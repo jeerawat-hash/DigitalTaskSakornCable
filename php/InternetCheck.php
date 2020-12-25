@@ -11,7 +11,7 @@
 
       
       $query = mssql_query( " 
-       SELECT TOP 1000 [ID]
+       SELECT TOP 1 [ID]
       ,[PPPOE]
       ,[InetID]
       ,[SakornID]
@@ -25,28 +25,26 @@
       while ($result = mssql_fetch_array($query)) {
 
         $TYPE = ($result["InetID"] != "") ? "INET" : "Sakorn" ;
+        //echo $result["PPPOE"]." ".$TYPE."<br>";
 
-        echo $result["PPPOE"]." ".$TYPE."<br>";
+        if ($TYPE == "INET") {
+          
+            $url = "https://bb.inet-th.net/index.php/api/update";
+            Operation($url,$result["InetID"],"suspend");
 
+        }else{
+
+            mysql_query(" update  radius.radreply set value = 'Expire'  WHERE  username = '".$result["PPPOE"]."'  ");
+
+
+        }
+
+        mssql_query("update [InternetSakorn].[dbo].[InternetCheckLog] set [is_Check] = 1 where ID = '".$result["ID"]."' ");
 
 
       }
 
-
-
  
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
