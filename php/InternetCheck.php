@@ -30,7 +30,7 @@
         if ($TYPE == "INET") {
           
             $url = "https://bb.inet-th.net/index.php/api/update";
-            Operation($url,$result["InetID"],"suspend");
+            echo  Operation($url,$result["InetID"],"suspend");
 
         }else{
 
