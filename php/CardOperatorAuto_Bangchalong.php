@@ -143,8 +143,8 @@
 			}else{
 
 				$dayp = date('Y-m-d', strtotime('+1 day', $today));
-				$message = "ได้รับการชดเชยเลื่อนตัดสัญญาณวันที่ ".$inday;
-				$string  = " perl /var/www/html/schedue/digital/notifycard.pl ".$result["CardNO"]." ".$message." ".$dayp." 08:50:00 ";
+				$message = "เลื่อนตัดสัญญาณวันที่ ".$inday;
+				$string  = " perl /var/www/html/schedue/digital/notifycard.pl 9980003200013954 ".$message." 2020-12-26 08:50:00";
 
 			}
  
