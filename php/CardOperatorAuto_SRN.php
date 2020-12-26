@@ -127,7 +127,7 @@
 			
 
 			$string = ( isset($CustomerCom["ID"]) ) ? "perl /var/www/html/schedue/digital/notifycard.pl ".$result["CardNO"]." ".$message." ".$intervalday." 08:50:00" : " perl /var/www/html/schedue/digital/cutcard.pl ".$result["CardNO"]." " ;		 
-			
+
 			//$string  = " perl /var/www/html/schedue/digital/cutcard.pl ".$result["CardNO"]." ";
   
 			$exe =  shell_exec( $string );
@@ -139,17 +139,7 @@
 
 
 
-
-
-
-
-
-
-
-
-
-
-
+ 
 
 
 
