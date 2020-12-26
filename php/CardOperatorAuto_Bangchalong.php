@@ -130,12 +130,7 @@
 
 		mssql_query(" update [WebSakorn].[dbo].[CardCompenStateDetail] set Is_Notify = 1 , CutDate = '".$intervalday."'  where Is_Success = 0 and Is_Notify = 0 and ID = '".$CustomerCom["ID"]."' ");
 
-			
-			
-
-			//$string = ( isset($CustomerCom["ID"]) ) ? "perl /var/www/html/schedue/digital/notifycard.pl ".$result["CardNO"]." ".$message." ".$intervalday." 08:50:00" : " perl /var/www/html/schedue/digital/cutcard.pl ".$result["CardNO"]." " ;		 
-			
-
+			 
 			if ($ComPen == "") {
 				
 				$string  = " perl /var/www/html/schedue/digital/cutcard.pl ".$result["CardNO"]." ";
@@ -143,8 +138,8 @@
 			}else{
 
 				$dayp = date('Y-m-d', strtotime('+1 day', $today));
-				$message = "เลื่อนตัดสัญญาณวันที่ ".$inday;
-				$string  = " perl /var/www/html/schedue/digital/notifycard.pl ".$result["CardNO"]." aaaaaaa 2020-12-26 08:50:00";
+				$message = "ได้รับการชดเชยเลื่อนตัดสัญญาณเป็นวันที่".$inday;
+				$string  = " perl /var/www/html/schedue/digital/notifycard.pl ".$result["CardNO"]." ".$message." ".$dayp." 08:50:00";
 
 			}
  
