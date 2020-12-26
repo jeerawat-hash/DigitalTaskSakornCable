@@ -30,26 +30,130 @@
 		$status_auto = "";
 		
 		if ( $result["IsOpenCard"] == "1" ) {
-			
+
+
+
+ 
+
+	$CustomerCom = mssql_fetch_array( mssql_query(" SELECT [ID]
+      ,[DB]
+      ,[HomeNameID]
+      ,[CardID]
+      ,[CustomerID]
+      ,[DateInterval]
+      ,[Is_Notify]
+      ,[CutDate]
+      ,[Is_Success]
+  FROM [WebSakorn].[dbo].[CardCompenStateDetail] where Is_Success = 0 and Is_Notify = 1 and CardID = '".$result["CardNO"]."' ") );
+
+
+		$ComPen = ( isset($CustomerCom["ID"]) ) ? $CustomerCom["DB"]." ".$CustomerCom["CustomerID"]." ได้รับการชดเชยแล้ว" : "";
+
+		mssql_query(" update [WebSakorn].[dbo].[CardCompenStateDetail] set Is_Success = 1  where Is_Success = 0 and ID = '".$CustomerCom["ID"]."' ");
+
+
+
+  
+
+
+
 
 			$string  = " perl /var/www/html/schedue/digital/opencard.pl ".$result["CardNO"]." ";
 
 			$exe =  shell_exec( $string );
 
-			$status_auto = "ต่อ";
+			$status_auto = "ต่อ\n".$ComPen;
             //$token = "xwIy9YnB1ByZfiFz9dS4Pe82hLw9o5nRnQdmqnXlBBZ";
             $token = "X3Ns5J0u2UhKkoirOm20GIvRyFlNtA3R7LJEizfhGQN";
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 		}else
 		if ( $result["IsOpenCard"] == "0" ) {
+
+
+
+ 
+
+		$CustomerCom = mssql_fetch_array( mssql_query(" SELECT [ID]
+      ,[DB]
+      ,[HomeNameID]
+      ,[CardID]
+      ,[CustomerID]
+      ,[DateInterval]
+      ,[Is_Notify]
+      ,[CutDate]
+      ,[Is_Success]
+  FROM [WebSakorn].[dbo].[CardCompenStateDetail] where Is_Success = 0 and Is_Notify = 0 and CardID = '".$result["CardNO"]."' ") );
+
+		
+		$today = time();
+    	$intervalday = date('Y-m-d', strtotime('+'.$CustomerCom["DateInterval"].' day', $today)); 
+
+    	$inday = date('d-m-Y', strtotime('+'.$CustomerCom["DateInterval"].' day', $today));
+
+
+    	$ComPen = ( isset($CustomerCom["ID"]) ) ? $CustomerCom["DB"]." ".$CustomerCom["CustomerID"]." ได้รับการชดเชยเลื่อนไปตัดวันที่ ".$inday : "";
+    	
+    	///////// 
+    	/// Notify
+    	/////////
+
+		mssql_query(" update [WebSakorn].[dbo].[CardCompenStateDetail] set Is_Notify = 1 and CutDate = '".$intervalday."'  where Is_Success = 0 and Is_Notify = 0 and ID = '".$CustomerCom["ID"]."' ");
+
+
+			$dayp = date('d-m-Y', strtotime('+1 day', $today));
+			$message = "ได้รับการชดเชยเลื่อนตัดสัญญาณวันที่ ".$dayp;
 			
 
-			$string  = " perl /var/www/html/schedue/digital/cutcard.pl ".$result["CardNO"]." ";
-
+			$string = ( isset($CustomerCom["ID"]) ) ? "perl /var/www/html/schedue/digital/notifycard.pl ".$result["CardNO"]." ".$message." ".$intervalday." 08:50:00" : " perl /var/www/html/schedue/digital/cutcard.pl ".$result["CardNO"]." " ;		 
+			
+			//$string  = " perl /var/www/html/schedue/digital/cutcard.pl ".$result["CardNO"]." ";
+  
 			$exe =  shell_exec( $string );
- 			
- 			$status_auto = "ตัด";
+ 			 
+ 			$status_auto = "ตัด\n".$ComPen;
  			$token = "Ahlxzwfwdnv7CjVPMC3s6fdNPtOEH49AeQkhF4CUfKI";
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 		}
  
 
