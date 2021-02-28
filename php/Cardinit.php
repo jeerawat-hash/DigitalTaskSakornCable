@@ -131,7 +131,7 @@
                   $ReportAll = "เคลียร์ค่าและตัดสัญญาณการ์ดส่วนเกินจากกุญแจ....\n".$Report;
 
                   if ( $Report != "" ) {
-                    notify($ReportAll,"Ahlxzwfwdnv7CjVPMC3s6fdNPtOEH49AeQkhF4CUfKI");
+                    #notify($ReportAll,"Ahlxzwfwdnv7CjVPMC3s6fdNPtOEH49AeQkhF4CUfKI");
                   }
 
 
