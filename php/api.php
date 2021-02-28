@@ -1,7 +1,7 @@
 <?php 
 	ini_set('mssql.charset', 'UTF-8');
-    $connection = mssql_connect('mssqlcon', 'sa', 'Sakorn123');
-
+    $a = mssql_connect('mssqlcon', 'sa', 'Sakorn123');
+    $b = mssql_connect('mssqlconcas', 'check', 'Sakorn123');
 		
 error_reporting(0);
 
@@ -24,9 +24,10 @@ error_reporting(0);
 
 	if ( $data["Status"] == "Cut" ) {
 		
-		$string  = " perl /var/www/html/schedue/digital/cutcard.pl ".$data["CardNo"]." ";
+		#$string  = " perl /var/www/html/schedue/digital/cutcard.pl ".$data["CardNo"]." ";
 
-		$exe =  shell_exec( $string );
+		#$exe =  shell_exec( $string );
+		$exe = mssql_query(" exec dbo.sp_Card_Stop '".$data["CardNo"]."',null ",$b);
 
 		if ($exe) {
 			#echo "CUT ".$data["CardNo"];
@@ -40,7 +41,7 @@ error_reporting(0);
      VALUES
            ('".$data["EmpID"]."'
            ,'".$data["CardNo"]."'
-           ,'".$data["Status"]."') ");
+           ,'".$data["Status"]."') ",$a);
 
 			notify($message_notify,$token);
 			notify($message_notify,$token2);
@@ -51,15 +52,18 @@ error_reporting(0);
 	if ( $data["Status"] == "Open" ) {
 			
 
-		$stringa  = " perl /var/www/html/schedue/digital/cutcard.pl ".$data["CardNo"]." ";
+		#$stringa  = " perl /var/www/html/schedue/digital/cutcard.pl ".$data["CardNo"]." ";
 
-		$exea =  shell_exec( $string );
+		#$exea =  shell_exec( $string );
+		mssql_query(" exec dbo.sp_Card_Stop '".$data["CardNo"]."',null ",$b);
 
 		sleep(2);
 
-		$string  = " perl /var/www/html/schedue/digital/opencard.pl ".$data["CardNo"]." ";
+		#$string  = " perl /var/www/html/schedue/digital/opencard.pl ".$data["CardNo"]." ";
 
-		$exe =  shell_exec( $string );
+		#$exe =  shell_exec( $string );
+		
+		$exe = mssql_query(" exec dbo.sp_Card_Restart '".$data["CardNo"]."',null ",$b);
 
 		if ($exe) {
 			#echo "Open ".$data["CardNo"];
@@ -74,7 +78,7 @@ error_reporting(0);
      VALUES
            ('".$data["EmpID"]."'
            ,'".$data["CardNo"]."'
-           ,'".$data["Status"]."') ");
+           ,'".$data["Status"]."') ",$a);
 			
 			notify($message_notify,$token);
 			notify($message_notify,$token2);

@@ -1,14 +1,14 @@
 <?php 
 
 	ini_set('mssql.charset', 'UTF-8');
-    $connection = mssql_connect('mssqlcon', 'sa', 'Sakorn123');
-
+    $a = mssql_connect('mssqlcon', 'sa', 'Sakorn123');
+    $b = mssql_connect('mssqlconcas', 'check', 'Sakorn123');
 
 	$token = "";
  
 
 	$CasCheck = mssql_fetch_array(mssql_query(" SELECT  [Cas_IsNormal]
-  FROM [WebSakorn].[dbo].[SystemSakorn] "));
+  FROM [WebSakorn].[dbo].[SystemSakorn] ",$a));
 
 	if ($CasCheck["Cas_IsNormal"] == "0") {
 		
@@ -18,7 +18,7 @@
 	}
 	 
 
-	$query_str = mssql_query(" select top 3 'CSCable' as DB,UserID,RowOrder,CardNO,IsOpenCard,IsUpdateCASAlready from CSCable.dbo.CustomerCardLog where IsUpdateCASAlready = 0 order by RowOrder asc ");
+	$query_str = mssql_query(" select top 3 'CSCable' as DB,UserID,RowOrder,CardNO,IsOpenCard,IsUpdateCASAlready from CSCable.dbo.CustomerCardLog where IsUpdateCASAlready = 0 order by RowOrder asc ",$a);
 
 
 
@@ -45,12 +45,12 @@
       ,[Is_Notify]
       ,[CutDate]
       ,[Is_Success]
-  FROM [WebSakorn].[dbo].[CardCompenStateDetail] where Is_Success = 0 and Is_Notify = 1 and CardID = '".$result["CardNO"]."' ") );
+  FROM [WebSakorn].[dbo].[CardCompenStateDetail] where Is_Success = 0 and Is_Notify = 1 and CardID = '".$result["CardNO"]."' ",$a) );
 
 
 		$ComPen = ( isset($CustomerCom["ID"]) ) ? $CustomerCom["DB"]." ".$CustomerCom["CustomerID"]." ได้รับการชดเชยแล้ว" : "";
 
-		mssql_query(" update [WebSakorn].[dbo].[CardCompenStateDetail] set Is_Success = 1  where Is_Success = 0 and ID = '".$CustomerCom["ID"]."' ");
+		mssql_query(" update [WebSakorn].[dbo].[CardCompenStateDetail] set Is_Success = 1  where Is_Success = 0 and ID = '".$CustomerCom["ID"]."' ",$a);
 
 
 
@@ -64,9 +64,11 @@
 
 			
 
-			$string  = " perl /var/www/html/schedue/digital/opencard.pl ".$result["CardNO"]." ";
+			#$string  = " perl /var/www/html/schedue/digital/opencard.pl ".$result["CardNO"]." ";
 
-			$exe =  shell_exec( $string );
+			#$exe =  shell_exec( $string );
+
+			mssql_query(" exec dbo.sp_Card_Restart '".$result["CardNO"]."',null ",$b);
 
 			$status_auto = "ต่อ\n".$ComPen;
             //$token = "xwIy9YnB1ByZfiFz9dS4Pe82hLw9o5nRnQdmqnXlBBZ";
@@ -110,7 +112,7 @@
       ,[Is_Notify]
       ,[CutDate]
       ,[Is_Success]
-  FROM [WebSakorn].[dbo].[CardCompenStateDetail] where Is_Success = 0 and Is_Notify = 0 and CardID = '".$result["CardNO"]."' ") );
+  FROM [WebSakorn].[dbo].[CardCompenStateDetail] where Is_Success = 0 and Is_Notify = 0 and CardID = '".$result["CardNO"]."' ",$a) );
 
 		
 		$today = time();
@@ -125,12 +127,14 @@
     	/// Notify
     	/////////
 
-		mssql_query(" update [WebSakorn].[dbo].[CardCompenStateDetail] set Is_Notify = 1 , CutDate = '".$intervalday."'  where Is_Success = 0 and Is_Notify = 0 and ID = '".$CustomerCom["ID"]."' ");
+		mssql_query(" update [WebSakorn].[dbo].[CardCompenStateDetail] set Is_Notify = 1 , CutDate = '".$intervalday."'  where Is_Success = 0 and Is_Notify = 0 and ID = '".$CustomerCom["ID"]."' ",$a);
 
 
 			if ($ComPen == "") {
 				
-				$string  = " perl /var/www/html/schedue/digital/cutcard.pl ".$result["CardNO"]." ";
+				#$string  = " perl /var/www/html/schedue/digital/cutcard.pl ".$result["CardNO"]." ";
+
+				mssql_query(" exec dbo.sp_Card_Stop '".$result["CardNO"]."',null ",$b);
 
 			}else{
 
@@ -177,7 +181,7 @@
 		}
  
 
-		mssql_query(" update CSCable.dbo.CustomerCardLog set IsUpdateCASAlready = 1 where CardNO = '".$result["CardNO"]."' ");
+		mssql_query(" update CSCable.dbo.CustomerCardLog set IsUpdateCASAlready = 1 where CardNO = '".$result["CardNO"]."' ",$a);
 
 		$message_notify .= $result["CardNO"]." ".$result["UserID"]." ".$status_auto."\n";
 

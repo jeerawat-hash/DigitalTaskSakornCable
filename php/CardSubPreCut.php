@@ -6,19 +6,21 @@
 
       ////////////////////////// begin cut out //////////////////////////////
        
-      $connection = mssql_connect('mssqlcon', 'sa', 'Sakorn123');
+      $a = mssql_connect('mssqlcon', 'sa', 'Sakorn123');
+      $b = mssql_connect('mssqlconcas', 'check', 'Sakorn123');
 
       
       $query = mssql_query( " SELECT top 1  a.ID,b.Fname,[CardNo],[EmployeeID],Is_Open,Is_Success
     FROM [WebSakorn].[dbo].[SubPreOpenCard] a 
-    join [WebSakorn].[dbo].[Employee] b on a.EmployeeID = b.ID  where Is_Success = 0 and Is_Open = 1 " );
+    join [WebSakorn].[dbo].[Employee] b on a.EmployeeID = b.ID  where Is_Success = 0 and Is_Open = 1 ",$a);
   
 
       while ($result = mssql_fetch_array($query)) {
          
       sleep(3);
-      $string  = " perl /var/www/html/schedue/digital/cutcard.pl ".$result["CardNo"]." ";
-      $exe =  shell_exec( $string );
+      #$string  = " perl /var/www/html/schedue/digital/cutcard.pl ".$result["CardNo"]." ";
+      #$exe =  shell_exec( $string );
+      mssql_query(" exec dbo.sp_Card_Stop '".$result["CardNo"]."',null ",$b);
 
 
       $message = "\nระบบตัดสัญญาณจากการเปิดชั่วคราวการ์ด\nหมายเลข : ".$result["CardNo"];
@@ -26,7 +28,7 @@
       notify($message,"1JHQB0CgfO834Dnz0VNETIBtHgCm1d7qrjNP6HxJlCO");
 
 
-      mssql_query( " update [WebSakorn].[dbo].[SubPreOpenCard] set Is_Success = 1 where ID = '".$result["ID"]."' " );
+      mssql_query( " update [WebSakorn].[dbo].[SubPreOpenCard] set Is_Success = 1 where ID = '".$result["ID"]."' " ,$a);
 
 
       }

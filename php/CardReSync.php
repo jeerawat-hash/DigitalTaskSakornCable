@@ -7,8 +7,8 @@
       ////////////////////////// begin cut out //////////////////////////////
       $mysql = mysql_connect("172.168.0.24","sak0rn","sak0rncable");
 
-      $connection = mssql_connect('mssqlcon', 'sa', 'Sakorn123');
-
+      $a = mssql_connect('mssqlcon', 'sa', 'Sakorn123');
+      $b = mssql_connect('mssqlconcas', 'check', 'Sakorn123');
       
       $getAllTele_str = mssql_query( " SELECT top 1 [ID]
       ,[Telephone]
@@ -16,7 +16,7 @@
       ,[CreateDate]
       ,[IsSuccess]
       ,[IsReInit]
-  FROM [LineSakorn].[dbo].[PreOpenCard] where IsReInit = 0 and IsSuccess = 1 and IsOpenCard = 0 order by ID " );
+  FROM [LineSakorn].[dbo].[PreOpenCard] where IsReInit = 0 and IsSuccess = 1 and IsOpenCard = 0 order by ID " ,$a);
 
 
 
@@ -78,7 +78,7 @@
             
             select 'SRN' as DB,a.CardID,b.CustomerID,b.Telephone,b.CustomerName,b.Soi from SRN.dbo.customercabletype a
             join SRN.dbo.Customer b on a.CustomerID = b.CustomerID
-            where b.Telephone = @Telephone and CardID != '' and b.Suspend = 0 ");
+            where b.Telephone = @Telephone and CardID != '' and b.Suspend = 0 ",$a);
 
  
 
@@ -163,7 +163,7 @@
                           on a.customerid = b.customerid   AND b.CardID = @sCardNo
 
                           ) SakornGroup ORDER BY StopDate desc
-                       ");
+                       ",$a);
 
 
                         if (mssql_num_rows($CardSyncStr) != 0 ) {
@@ -172,21 +172,21 @@
 
 
                           //$check_CardCycle = mssql_num_rows(mssql_query(" select * from [LineSakorn].[dbo].[OpenCard] where CardNo = '".$Card["CardID"]."' and month(CreateDate) = MONTH(GETDATE()) and IsSuccess = 1 "));
-                          $check_CardCycle = mssql_num_rows(mssql_query(" select * from [LineSakorn].[dbo].[OpenCard] where CardNo = '".$Card["CardID"]."' and IsSuccess = 1 "));
+                          $check_CardCycle = mssql_num_rows(mssql_query(" select * from [LineSakorn].[dbo].[OpenCard] where CardNo = '".$Card["CardID"]."' and IsSuccess = 1 ",$a));
 
 
                           /// begin
                           if ($check_CardCycle != 0) {
 
-                            $string  = " perl /var/www/html/schedue/digital/opencard.pl ".$Card["CardID"]." ";
+                            #$string  = " perl /var/www/html/schedue/digital/opencard.pl ".$Card["CardID"]." ";
 
-                            $exe =  shell_exec( $string );
-
+                            #$exe =  shell_exec( $string );
+                            mssql_query(" exec dbo.sp_Card_Restart '".$Card["CardID"]."',null ",$b);
                             
                             $Report .= $Card["DB"]." ".$Card["CardID"]." ".$Card["CustomerID"]."\n".$Card["CustomerName"]."\n".$Card["Telephone"]." ".$Card["Soi"]."\n";
 
 
-                            mssql_query(" update [LineSakorn].[dbo].[OpenCard] set IsSuccess = 2 where CardNo = '".$Card["CardID"]."' and IsSuccess = 1 ");
+                            mssql_query(" update [LineSakorn].[dbo].[OpenCard] set IsSuccess = 2 where CardNo = '".$Card["CardID"]."' and IsSuccess = 1 ",$a);
         
 
                           }
@@ -212,7 +212,7 @@
 
                   ################### Internet Operate #################
 
-                  $InternetQuery = mssql_query(" exec LineSakorn.dbo.InternetCheck '".$Telephone["Telephone"]."' ");
+                  $InternetQuery = mssql_query(" exec LineSakorn.dbo.InternetCheck '".$Telephone["Telephone"]."' ",$a);
 
                   while ($InternetResult = mssql_fetch_array($InternetQuery)) {
 
@@ -268,7 +268,7 @@
               ############################ update log #############################
 
 
-              mssql_query(" update [LineSakorn].[dbo].[PreOpenCard] set IsReInit = 1 where ID = '".$Telephone["ID"]."' ");
+              mssql_query(" update [LineSakorn].[dbo].[PreOpenCard] set IsReInit = 1 where ID = '".$Telephone["ID"]."' ",$a);
             
               $message = "ทำการ Sync ค่าเบอร์ ".$Telephone["Telephone"]." จากระบบต่อชั่วคราว\n".$Report.$Report_Internet."สำเร็จ";
 

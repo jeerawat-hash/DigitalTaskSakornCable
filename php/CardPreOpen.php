@@ -8,10 +8,11 @@
       
       $mysql = mysql_connect("172.168.0.24","sak0rn","sak0rncable");
 
-      $connection = mssql_connect('mssqlcon', 'sa', 'Sakorn123');
+      $a = mssql_connect('mssqlcon', 'sa', 'Sakorn123');
+      $b = mssql_connect('mssqlconcas', 'check', 'Sakorn123');
 
       
-      $getAllTele_str = mssql_query( " SELECT top 5 * FROM [LineSakorn].[dbo].[PreOpenCard] where IsSuccess = 0  order by ID asc " );
+      $getAllTele_str = mssql_query( " SELECT top 5 * FROM [LineSakorn].[dbo].[PreOpenCard] where IsSuccess = 0  order by ID asc " ,$a);
 
       while ($Telephone = mssql_fetch_array($getAllTele_str)) {
  
@@ -75,7 +76,7 @@
             where b.Telephone = @Telephone and CardID != '' 
 
 
-            ");
+            ",$a);
 
  
 
@@ -151,14 +152,14 @@
                           on a.customerid = b.customerid   AND b.CardID = @sCardNo
 
                           ) SakornGroup ORDER BY StopDate desc
-                       ");
+                       ",$a);
 
 
                         if ( mssql_num_rows($CardSyncStr) != 0 ) {
 
 
 
-                          $check_CardCycle = mssql_num_rows(mssql_query(" select * from [LineSakorn].[dbo].[OpenCard] where CardNo = '".$Card["CardID"]."' and month(CreateDate) = MONTH(GETDATE()) "));
+                          $check_CardCycle = mssql_num_rows(mssql_query(" select * from [LineSakorn].[dbo].[OpenCard] where CardNo = '".$Card["CardID"]."' and month(CreateDate) = MONTH(GETDATE()) ",$a));
 
 
                           if ($check_CardCycle == 0) {
@@ -169,13 +170,13 @@
                              ,[CreateDate])
                        VALUES
                              ('".$Card["CardID"]."'
-                             ,'".date("Y-m-d")."') ");
+                             ,'".date("Y-m-d")."') ",$a);
 
 
-                            $string  = " perl /var/www/html/schedue/digital/opencard.pl ".$Card["CardID"]." ";
+                            #$string  = " perl /var/www/html/schedue/digital/opencard.pl ".$Card["CardID"]." ";
 
-                            $exe =  shell_exec( $string );
-
+                            #$exe =  shell_exec( $string );
+                            mssql_query(" exec dbo.sp_Card_Restart '".$Card["CardID"]."',null ",$b);
                             
                             $Report .= $Card["DB"]." ".$Card["CardID"]." ".$Card["CustomerID"]."\n".$Card["CustomerName"]."\n".$Card["Telephone"]." ".$Card["Soi"]."\n";
 
@@ -213,7 +214,7 @@
 
                   ################### Internet Operate #################
 
-                  $InternetQuery = mssql_query(" exec LineSakorn.dbo.InternetCheck '".$Telephone["Telephone"]."' ");
+                  $InternetQuery = mssql_query(" exec LineSakorn.dbo.InternetCheck '".$Telephone["Telephone"]."' ",$a);
 
                   while ($InternetResult = mssql_fetch_array($InternetQuery)) {
                     
@@ -250,7 +251,7 @@
               ############################ update log #############################
 
 
-              mssql_query(" update [LineSakorn].[dbo].[PreOpenCard] set IsOpenCard = 1 , IsSuccess = 1 where ID = '".$Telephone["ID"]."' ");
+              mssql_query(" update [LineSakorn].[dbo].[PreOpenCard] set IsOpenCard = 1 , IsSuccess = 1 where ID = '".$Telephone["ID"]."' ",$a);
             
 
               $message = "ดำเนินการ ต่อการ์ดและเน็ตชั่วคราว\n".$Report.$Report_Internet;
