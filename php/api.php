@@ -25,7 +25,6 @@ error_reporting(0);
 	if ( $data["Status"] == "Cut" ) {
 		
 		#$string  = " perl /var/www/html/schedue/digital/cutcard.pl ".$data["CardNo"]." ";
-
 		#$exe =  shell_exec( $string );
 		$exe = mssql_query(" exec dbo.sp_Card_Stop '".$data["CardNo"]."',null ",$b);
 

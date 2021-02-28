@@ -23,9 +23,7 @@
 
       $Report = "";
 
-
-
-
+ 
       while ($resultCard = mssql_fetch_array($getAllCard_str)) {
         
 
@@ -115,16 +113,18 @@
             if ($CardStatus == 0) {
 
  
-                $CheckStatusCardCas = mssql_num_rows( mssql_query(" SELECT [CardNO],*  FROM [CAS].[dbo].[Card2Platform] where CUCount = 1 and CardNo = '".$resultCard["CardNO"]."' ",$b) );
+                $CheckStatusCardCas = mssql_num_rows( mssql_query(" SELECT [CardNO],*  FROM [CAS].[dbo].[Card2Platform] where CardNo = '".$resultCard["CardNO"]."' ",$b) );
 
 
                 if ($CheckStatusCardCas != 0) {
                   
                   ############ cut card number ##############
 
-                  $string  = " perl /var/www/html/schedue/digital/cutcard.pl ".$resultCard["CardNO"]." ";
+                  #$string  = " perl /var/www/html/schedue/digital/cutcard.pl ".$resultCard["CardNO"]." ";
 
-                  $exe =  shell_exec( $string );
+                  #$exe =  shell_exec( $string );
+                  
+                  mssql_query(" exec dbo.sp_Card_Stop '".$resultCard["CardNO"]."',null ",$b);
 
                   ############ cut card number ##############
                   $Report = "ตัด ".$resultCard["CardNO"]."\n";

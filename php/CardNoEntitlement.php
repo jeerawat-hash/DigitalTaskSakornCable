@@ -26,7 +26,7 @@
       while ($Result = mssql_fetch_array($Query)) {
        
 
-        $Check = mssql_num_rows(mssql_query(" SELECT * FROM [CAS].[dbo].[Card2Platform] where CardNO = '".trim($Result["CardNO"])."' and CUCount = 1 ",$b));
+        $Check = mssql_num_rows(mssql_query(" SELECT * FROM [CAS].[dbo].[Card2Platform] where CardNO = '".trim($Result["CardNO"])."' ",$b));
 
         $status = "";
 
@@ -36,18 +36,19 @@
           echo $Result["CardNO"]." ".$Check."\n";
 
 
-          $Cut  = " perl /var/www/html/schedue/digital/cutcard.pl ".$Result["CardNO"]." ";
+          #$Cut  = " perl /var/www/html/schedue/digital/cutcard.pl ".$Result["CardNO"]." ";
 
-          shell_exec( $Cut );
+          #shell_exec( $Cut );
+          mssql_query(" exec dbo.sp_Card_Stop '".$Result["CardNO"]."',null ",$b);
           
 
           sleep(5);
 
 
-          $Open  = " perl /var/www/html/schedue/digital/opencard.pl ".$Result["CardNO"]." ";
+          #$Open  = " perl /var/www/html/schedue/digital/opencard.pl ".$Result["CardNO"]." ";
 
-          shell_exec( $Open );
-     
+          #shell_exec( $Open );
+          mssql_query(" exec dbo.sp_Card_Restart '".$Result["CardNO"]."',null ",$b);
 
           $status = "ย้ำสัญญาณการ์ดสำเร็จ";
  
