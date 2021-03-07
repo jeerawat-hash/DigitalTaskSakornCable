@@ -73,7 +73,7 @@
 			#$exe =  shell_exec( $string );
 
 			mssql_query(" exec dbo.sp_Card_Restart '".$result["CardNO"]."',null ",$b);
-
+			mssql_query(" delete from [CAS].[dbo].[OSDsBackup] where FilterData = '".$result["CardNO"]."' ",$b);
 			$status_auto = "ต่อ\n".$ComPen;
             //$token = "xwIy9YnB1ByZfiFz9dS4Pe82hLw9o5nRnQdmqnXlBBZ";
             $token = "X3Ns5J0u2UhKkoirOm20GIvRyFlNtA3R7LJEizfhGQN";

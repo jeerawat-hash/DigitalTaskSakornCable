@@ -58,7 +58,7 @@
 
 
 			mssql_query(" exec dbo.sp_Card_Restart '".$result["CardNO"]."',null ",$b);
-
+			mssql_query(" delete from [CAS].[dbo].[OSDsBackup] where FilterData = '".$result["CardNO"]."' ",$b);
 			#$string  = " perl /var/www/html/schedue/digital/opencard.pl ".$result["CardNO"]." ";
 
 			#$exe =  shell_exec( $string );
