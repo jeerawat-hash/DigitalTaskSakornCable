@@ -27,7 +27,7 @@
   		#shell_exec(" perl /var/www/html/schedue/digital/notifycard.pl ".$result["CardNO"]." ".$message." ".date("Y-m-d")." 08:50:00 ");
       
 
-      mssql_query("  exec [dbo].[sp_Service_OSD]  0,'".$result["CardNO"]."',0,60,'Y/Z+hq2T9tcXz1C+CmUCD5bT9HqRsaVljtDGlbq1REe5PxbyhxC1Da+xOrggdBOqOJW3pLbupmNB8dzgvfGR0g==','2021-12-30 00:00:00',null ",$b);
+      mssql_query("  exec [dbo].[sp_Service_OSD]  0,'".$result["CardNO"]."',0,60,'Y/Z+hq2T9tcXz1C+CmUCD5bT9HqRsaVljtDGlbq1REe5PxbyhxC1Da+xOrggdBOqOJW3pLbupmNB8dzgvfGR0g==','".date("Y-m-d")." 18:50:00',null ",$b);
 
 
 
