@@ -25,7 +25,8 @@
 
       $message = "\nระบบตัดสัญญาณจากการเปิดชั่วคราวการ์ด\nหมายเลข : ".$result["CardNo"];
 
-      notify($message,"1JHQB0CgfO834Dnz0VNETIBtHgCm1d7qrjNP6HxJlCO");
+      //notify($message,"1JHQB0CgfO834Dnz0VNETIBtHgCm1d7qrjNP6HxJlCO");
+      notify($message,"Ahlxzwfwdnv7CjVPMC3s6fdNPtOEH49AeQkhF4CUfKI");
 
 
       mssql_query( " update [WebSakorn].[dbo].[SubPreOpenCard] set Is_Success = 1 where ID = '".$result["ID"]."' " ,$a);
