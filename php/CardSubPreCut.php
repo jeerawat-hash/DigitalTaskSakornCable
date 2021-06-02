@@ -27,6 +27,8 @@
 		
 	}else{
 		
+	     $string  = " perl /var/www/html/schedue/nex/cutcard.pl ".$result["CardNo"]." ".$result["Macaddress"]." ";
+	     $exe =  shell_exec( $string );
 		
 	}
 
