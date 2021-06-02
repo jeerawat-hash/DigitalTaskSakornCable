@@ -176,7 +176,7 @@
 
 
 
-			/*
+			
 		
 			$string  = " perl /var/www/html/schedue/nex/cutcard.pl ".$result["CardNO"]." ".$result["MacAddress"]." ";
 
@@ -185,7 +185,7 @@
  			
  			$status_auto = "ตัด";
  			$token = "Ahlxzwfwdnv7CjVPMC3s6fdNPtOEH49AeQkhF4CUfKI";
-		*/
+		
 
 
 
