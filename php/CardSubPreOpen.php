@@ -9,7 +9,7 @@
       $a = mssql_connect('mssqlcon', 'sa', 'Sakorn123');
       $b = mssql_connect('mssqlconcas', 'check', 'Sakorn123');
       
-      $query = mssql_query( " SELECT top 1  a.ID,b.Fname,[CardNo],[EmployeeID],Is_Open,Is_Success
+      $query = mssql_query( " SELECT top 1  a.ID,b.Fname,[CardNo],[EmployeeID],Is_Open,Is_Success,( select MACAddress from SakornNewBusiness.dbo.CustomerCableType where CardID = [CardNo] and Suspend = 0) as Macaddress
     FROM [WebSakorn].[dbo].[SubPreOpenCard] a 
     join [WebSakorn].[dbo].[Employee] b on a.EmployeeID = b.ID  where Is_Success = 0 and Is_Open = 0 " ,$a );
   
