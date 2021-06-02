@@ -19,8 +19,9 @@
 	 
 
 	$query_str = mssql_query(" 
- select top 3 'SakornNewBusiness' as DB,UserID,RowOrder,CardNO,(select MACAddress from SakornNewBusiness.dbo.CustomerCableType where CardID = CardNO) as MacAddress
- ,IsOpenCard,IsUpdateCASAlready from SakornNewBusiness.dbo.CustomerCardLog where IsUpdateCASAlready = 0 order by RowOrder asc ",$a);
+	select   'SakornNewBusiness' as DB,UserID,RowOrder,CardNO,( select top 1 MACAddress from SakornNewBusiness.dbo.CustomerCableType where CardID = CardNO and Suspend = 0) as Macaddress
+ ,IsOpenCard,IsUpdateCASAlready from SakornNewBusiness.dbo.CustomerCardLog where IsUpdateCASAlready = 0 order by RowOrder asc
+ ",$a);
 
 
 
@@ -70,7 +71,7 @@
 
 			
 
-			$string  = " perl /var/www/html/schedue/nex/opencard.pl ".$result["CardNO"]." ".$result["MacAddress"]." ";
+			$string  = " perl /var/www/html/schedue/nex/opencard.pl ".$result["CardNO"]." ".$result["Macaddress"]." ";
 
 			$exe =  shell_exec( $string );
 
@@ -178,7 +179,7 @@
 
 			
 		
-			$string  = " perl /var/www/html/schedue/nex/cutcard.pl ".$result["CardNO"]." ".$result["MacAddress"]." ";
+			$string  = " perl /var/www/html/schedue/nex/cutcard.pl ".$result["CardNO"]." ".$result["Macaddress"]." ";
 
 
 			$exe =  shell_exec( $string );
