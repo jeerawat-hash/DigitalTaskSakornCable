@@ -19,7 +19,7 @@
 	 
 
 	$query_str = mssql_query(" 
-	select   'SakornNewBusiness' as DB,UserID,RowOrder,CardNO,( select top 1 MACAddress from SakornNewBusiness.dbo.CustomerCableType where CardID = CardNO and Suspend = 0) as Macaddress
+	select  top 3  'SakornNewBusiness' as DB,UserID,RowOrder,CardNO,( select top 1 MACAddress from SakornNewBusiness.dbo.CustomerCableType where CardID = CardNO and Suspend = 0) as Macaddress
  ,IsOpenCard,IsUpdateCASAlready from SakornNewBusiness.dbo.CustomerCardLog where IsUpdateCASAlready = 0 order by RowOrder asc
  ",$a);
 
