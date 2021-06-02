@@ -19,8 +19,16 @@
       sleep(3);
       #$string  = " perl /var/www/html/schedue/digital/opencard.pl ".$result["CardNo"]." ";
       #$exe =  shell_exec( $string );
-      mssql_query(" exec dbo.sp_Card_Restart '".$result["CardNo"]."',null ",$b);
-
+	      
+	if(strlen($result["CardNo"]) != 7){
+		
+		mssql_query(" exec dbo.sp_Card_Restart '".$result["CardNo"]."',null ",$b);
+		
+	}else{
+		
+		
+	}
+	       
       $message = "\nคุณ ".$result["Fname"]." เปิดสัญญาณชั่วคราวการ์ด\nหมายเลข : ".$result["CardNo"];
 
       notify($message,"xwIy9YnB1ByZfiFz9dS4Pe82hLw9o5nRnQdmqnXlBBZ");
