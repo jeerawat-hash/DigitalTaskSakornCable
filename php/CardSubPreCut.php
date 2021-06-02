@@ -20,7 +20,15 @@
       sleep(3);
       #$string  = " perl /var/www/html/schedue/digital/cutcard.pl ".$result["CardNo"]." ";
       #$exe =  shell_exec( $string );
-      mssql_query(" exec dbo.sp_Card_Stop '".$result["CardNo"]."',null ",$b);
+       
+      	if(strlen($result["CardNo"]) != 7){
+		
+	     mssql_query(" exec dbo.sp_Card_Stop '".$result["CardNo"]."',null ",$b);
+		
+	}else{
+		
+		
+	}
 
 
       $message = "\nระบบตัดสัญญาณจากการเปิดชั่วคราวการ์ด\nหมายเลข : ".$result["CardNo"];
