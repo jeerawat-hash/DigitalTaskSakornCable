@@ -21,19 +21,23 @@
       #$string  = " perl /var/www/html/schedue/digital/cutcard.pl ".$result["CardNo"]." ";
       #$exe =  shell_exec( $string );
        
-      	if(strlen($result["CardNo"]) != 7){
+		$typeServices = "";
+
+  if(strlen($result["CardNo"]) != 7){
 		
 	     mssql_query(" exec dbo.sp_Card_Stop '".$result["CardNo"]."',null ",$b);
+       $typeServices = "กล่องสาคร";
 		
 	}else{
 		
 	     $string  = " perl /var/www/html/schedue/nex/cutcard.pl ".$result["CardNo"]." ".$result["Macaddress"]." ";
 	     $exe =  shell_exec( $string );
+       $typeServices = "กล่อง NEX\nMAC : ".$result["Macaddress"];
 		
 	}
 
 
-      $message = "\nระบบตัดสัญญาณจากการเปิดชั่วคราวการ์ด\nหมายเลข : ".$result["CardNo"];
+      $message = "\nระบบตัดสัญญาณจากการเปิดชั่วคราวการ์ด\n".$typeServices."\nหมายเลข : ".$result["CardNo"];
 
       //notify($message,"1JHQB0CgfO834Dnz0VNETIBtHgCm1d7qrjNP6HxJlCO");
       notify($message,"Ahlxzwfwdnv7CjVPMC3s6fdNPtOEH49AeQkhF4CUfKI");

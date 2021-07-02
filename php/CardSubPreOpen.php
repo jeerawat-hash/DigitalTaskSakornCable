@@ -20,18 +20,24 @@
       #$string  = " perl /var/www/html/schedue/digital/opencard.pl ".$result["CardNo"]." ";
       #$exe =  shell_exec( $string );
 	      
+
+  $typeServices = "";
+
 	if(strlen($result["CardNo"]) != 7){
 		
 		mssql_query(" exec dbo.sp_Card_Restart '".$result["CardNo"]."',null ",$b);
-		
+		$typeServices = "กล่องสาคร";
+
 	}else{
 		
 	     $string  = " perl /var/www/html/schedue/nex/opencard.pl ".$result["CardNo"]." ".$result["Macaddress"]." ";
 	     $exe =  shell_exec( $string );
+  		$typeServices = "กล่อง NEX\nMAC : ".$result["Macaddress"];
+
 		
 	}
 	       
-      $message = "\nคุณ ".$result["Fname"]." เปิดสัญญาณชั่วคราวการ์ด\nหมายเลข : ".$result["CardNo"];
+      $message = "\nคุณ ".$result["Fname"]." เปิดสัญญาณชั่วคราวการ์ด\n".$typeServices."\nหมายเลข : ".$result["CardNo"];
 
       notify($message,"xwIy9YnB1ByZfiFz9dS4Pe82hLw9o5nRnQdmqnXlBBZ");
 
