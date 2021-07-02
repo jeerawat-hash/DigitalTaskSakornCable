@@ -167,17 +167,7 @@
  			$token = "Ahlxzwfwdnv7CjVPMC3s6fdNPtOEH49AeQkhF4CUfKI";
 
 
-
-
-
-
-
-
-
-
-
-
-			
+ 
 		
 			$string  = " perl /var/www/html/schedue/nex/cutcard.pl ".$result["CardNO"]." ".$result["Macaddress"]." ";
 

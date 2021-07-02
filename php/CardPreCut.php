@@ -191,7 +191,7 @@
 
 
                   ################### Internet Operate #################
-
+/* 02/07/2021
                   $InternetQuery = mssql_query(" exec LineSakorn.dbo.InternetCheck '".$Telephone["Telephone"]."' ",$a);
 
                   while ($InternetResult = mssql_fetch_array($InternetQuery)) {
@@ -220,7 +220,7 @@
 
 
                   }
- 
+ */  
                   ################### Internet Operate #################
 
  

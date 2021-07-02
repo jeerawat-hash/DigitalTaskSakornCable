@@ -50,20 +50,14 @@
 
 		$ComPen = ( isset($CustomerCom["ID"]) ) ? $CustomerCom["DB"]." ".$CustomerCom["CustomerID"]." ได้รับการชดเชยแล้ว" : "";
 
-		mssql_query(" update [WebSakorn].[dbo].[CardCompenStateDetail] set Is_Success = 1  where Is_Success = 0 and ID = '".$CustomerCom["ID"]."' ",$a);
+		if(isset($CustomerCom["ID"])){
+
+			mssql_query(" update [WebSakorn].[dbo].[CardCompenStateDetail] set Is_Success = 1  where Is_Success = 0 and ID = '".$CustomerCom["ID"]."' ",$a);
+
+		}
 
 
-
-
-
-
-
-
-
-
-
-			
-
+ 
 			#$string  = " perl /var/www/html/schedue/digital/opencard.pl ".$result["CardNO"]." ";
 
 			#$exe =  shell_exec( $string );
@@ -126,10 +120,13 @@
     	///////// 
     	/// Notify
     	/////////
+		if(isset($CustomerCom["ID"])){
+		
+			mssql_query(" update [WebSakorn].[dbo].[CardCompenStateDetail] set Is_Notify = 1 , CutDate = '".$intervalday."'  where Is_Success = 0 and Is_Notify = 0 and ID = '".$CustomerCom["ID"]."' ",$a);
+		
+		}
 
-		mssql_query(" update [WebSakorn].[dbo].[CardCompenStateDetail] set Is_Notify = 1 , CutDate = '".$intervalday."'  where Is_Success = 0 and Is_Notify = 0 and ID = '".$CustomerCom["ID"]."' ",$a);
-
-
+		
 			if ($ComPen == "") {
 				
 				#$string  = " perl /var/www/html/schedue/digital/cutcard.pl ".$result["CardNO"]." ";

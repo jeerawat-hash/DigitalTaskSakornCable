@@ -213,7 +213,7 @@
 
 
                   ################### Internet Operate #################
-
+/* 02/07/2021
                   $InternetQuery = mssql_query(" exec LineSakorn.dbo.InternetCheck '".$Telephone["Telephone"]."' ",$a);
 
                   while ($InternetResult = mssql_fetch_array($InternetQuery)) {
@@ -242,7 +242,7 @@
 
 
                   }
- 
+ */
                   ################### Internet Operate #################
 
  
@@ -255,6 +255,7 @@
             
 
               $message = "ดำเนินการ ต่อการ์ดและเน็ตชั่วคราว\n".$Report.$Report_Internet;
+              //$message = "ดำเนินการ ต่อการ์ดและเน็ตชั่วคราว\n".$Report.$Report_Internet;
               $message2 = "พยายามต่อการ์ดชั่วคราว ต่อการ์ดและเน็ตชั่วคราว\n".$Report;
 
               if ($Report != "") {
