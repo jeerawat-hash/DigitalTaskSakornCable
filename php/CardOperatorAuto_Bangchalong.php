@@ -20,7 +20,9 @@
 	}
 	 
 
-	$query_str = mssql_query(" select top 3 'Bangchalong' as DB,UserID,RowOrder,CardNO,IsOpenCard,IsUpdateCASAlready from Bangchalong.dbo.CustomerCardLog where IsUpdateCASAlready = 0 order by RowOrder asc ",$a);
+	//$query_str = mssql_query(" select top 3 'Bangchalong' as DB,UserID,RowOrder,CardNO,IsOpenCard,IsUpdateCASAlready from Bangchalong.dbo.CustomerCardLog where IsUpdateCASAlready = 0 order by RowOrder asc ",$a);
+	$query_str = mssql_query(" select  top 3 'Bangchalong' as DB,UserID,RowOrder,CardNO,( select top 1 MACAddress from Bangchalong.dbo.CustomerCableType where CardID = CardNO and Suspend = 0) as Macaddress
+	,IsOpenCard,IsUpdateCASAlready from Bangchalong.dbo.CustomerCardLog where IsUpdateCASAlready = 0 order by RowOrder asc	 ",$a);
 
 	$message_notify = "ดำเนินการการ์ด กุญแจ Bangchalong \n";
 
@@ -31,61 +33,48 @@
 		
 		if ( $result["IsOpenCard"] == "1" ) {
 
+ 
+			$CustomerCom = mssql_fetch_array( mssql_query(" SELECT [ID]
+			,[DB]
+			,[HomeNameID]
+			,[CardID]
+			,[CustomerID]
+			,[DateInterval]
+			,[Is_Notify]
+			,[CutDate]
+			,[Is_Success]
+		FROM [WebSakorn].[dbo].[CardCompenStateDetail] where Is_Success = 0 and Is_Notify = 1 and CardID = '".$result["CardNO"]."' ",$a) );
 
 
+			$ComPen = ( isset($CustomerCom["ID"]) ) ? $CustomerCom["DB"]." ".$CustomerCom["CustomerID"]." ได้รับการชดเชยแล้ว" : "";
+
+			if(isset($CustomerCom["ID"])){
+
+				mssql_query(" update [WebSakorn].[dbo].[CardCompenStateDetail] set Is_Success = 1  where Is_Success = 0 and ID = '".$CustomerCom["ID"]."' ",$a);
+ 
+			}
+
+			if(strlen($result["CardNO"]) == 7){
 
 
+				$string  = " perl /var/www/html/schedue/nex/opencard.pl ".$result["CardNO"]." ".$result["Macaddress"]." ";
+				$exe =  shell_exec( $string );
+				$status_auto = "NEX ต่อ\n".$ComPen;
+				//$token = "xwIy9YnB1ByZfiFz9dS4Pe82hLw9o5nRnQdmqnXlBBZ";
+  
 
-	$CustomerCom = mssql_fetch_array( mssql_query(" SELECT [ID]
-      ,[DB]
-      ,[HomeNameID]
-      ,[CardID]
-      ,[CustomerID]
-      ,[DateInterval]
-      ,[Is_Notify]
-      ,[CutDate]
-      ,[Is_Success]
-  FROM [WebSakorn].[dbo].[CardCompenStateDetail] where Is_Success = 0 and Is_Notify = 1 and CardID = '".$result["CardNO"]."' ",$a) );
+			}else{
 
 
-		$ComPen = ( isset($CustomerCom["ID"]) ) ? $CustomerCom["DB"]." ".$CustomerCom["CustomerID"]." ได้รับการชดเชยแล้ว" : "";
-
-		mssql_query(" update [WebSakorn].[dbo].[CardCompenStateDetail] set Is_Success = 1  where Is_Success = 0 and ID = '".$CustomerCom["ID"]."' ",$a);
-
-
-
-
-
-
-			mssql_query(" exec dbo.sp_Card_Restart '".$result["CardNO"]."',null ",$b);
-			mssql_query(" delete from [CAS].[dbo].[OSDsBackup] where FilterData = '".$result["CardNO"]."' ",$b);
-			#$string  = " perl /var/www/html/schedue/digital/opencard.pl ".$result["CardNO"]." ";
-
-			#$exe =  shell_exec( $string );
-
-			$status_auto = "ต่อ\n".$ComPen;
-            //$token = "xwIy9YnB1ByZfiFz9dS4Pe82hLw9o5nRnQdmqnXlBBZ";
-            $token = "X3Ns5J0u2UhKkoirOm20GIvRyFlNtA3R7LJEizfhGQN";
+				mssql_query(" exec dbo.sp_Card_Restart '".$result["CardNO"]."',null ",$b);
+				mssql_query(" delete from [CAS].[dbo].[OSDsBackup] where FilterData = '".$result["CardNO"]."' ",$b);
+				#$string  = " perl /var/www/html/schedue/digital/opencard.pl ".$result["CardNO"]." ";
+				#$exe =  shell_exec( $string );
+				$status_auto = "การ์ดสาคร ต่อ\n".$ComPen;
+				//$token = "xwIy9YnB1ByZfiFz9dS4Pe82hLw9o5nRnQdmqnXlBBZ";
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-		}else
-		if ( $result["IsOpenCard"] == "0" ) {
+			}
 			
 
 
@@ -94,19 +83,13 @@
 
 
 
+            $token = "X3Ns5J0u2UhKkoirOm20GIvRyFlNtA3R7LJEizfhGQN";
+ 
 
-
-
-
-
-
-
-
-
-
-
-
-
+		}else
+		if ( $result["IsOpenCard"] == "0" ) {
+			
+  
 		$CustomerCom = mssql_fetch_array( mssql_query(" SELECT [ID]
       ,[DB]
       ,[HomeNameID]
@@ -130,16 +113,32 @@
     	///////// 
     	/// Notify
     	/////////
+		if(isset($CustomerCom["ID"])){
 
-		mssql_query(" update [WebSakorn].[dbo].[CardCompenStateDetail] set Is_Notify = 1 , CutDate = '".$intervalday."'  where Is_Success = 0 and Is_Notify = 0 and ID = '".$CustomerCom["ID"]."' ",$a);
+			mssql_query(" update [WebSakorn].[dbo].[CardCompenStateDetail] set Is_Notify = 1 , CutDate = '".$intervalday."'  where Is_Success = 0 and Is_Notify = 0 and ID = '".$CustomerCom["ID"]."' ",$a);
+			
+		}
+		
 
 			 
 			if ($ComPen == "") {
 				
-				//$string  = " perl /var/www/html/schedue/digital/cutcard.pl ".$result["CardNO"]." ";
-				mssql_query(" exec dbo.sp_Card_Stop '".$result["CardNO"]."',null ",$b);
-				mssql_query(" exec [dbo].[sp_Service_OSD]  0,'".$result["CardNO"]."',0,60,'yGJu6u5seTLn6ox2p7UwDApMxtTBbOMiuA9GFXnJt+I3K2hBPx6mS4Takp3lYXbPwiaEhCA7u94EyLUokJ4aoQQVRU+vEXIP','".date("Y-m-d")." 18:25:00',null ",$b);
+ 
+				if(strlen($result["CardNO"]) == 7){
+ 
+					$nex  = " perl /var/www/html/schedue/nex/cutcard.pl ".$result["CardNO"]." ".$result["Macaddress"]." ";
+					shell_exec( $nex );
+					$status_auto = "NEX ตัด\n".$ComPen;
+ 
+				}else{
 
+					//$string  = " perl /var/www/html/schedue/digital/cutcard.pl ".$result["CardNO"]." ";
+					mssql_query(" exec dbo.sp_Card_Stop '".$result["CardNO"]."',null ",$b);
+					mssql_query(" exec [dbo].[sp_Service_OSD]  0,'".$result["CardNO"]."',0,60,'yGJu6u5seTLn6ox2p7UwDApMxtTBbOMiuA9GFXnJt+I3K2hBPx6mS4Takp3lYXbPwiaEhCA7u94EyLUokJ4aoQQVRU+vEXIP','".date("Y-m-d")." 18:25:00',null ",$b);
+					$status_auto = "การ์ดสาคร ตัด\n".$ComPen;
+
+				}
+ 
 			}else{
 
 				$dayp = date('Y-m-d', strtotime('+1 day', $today));
@@ -149,17 +148,10 @@
 			}
  
   
-			$exe =  shell_exec( $string );
- 			 
- 			$status_auto = "ตัด\n".$ComPen;
+			$exe =  shell_exec( $string ); 
  			$token = "Ahlxzwfwdnv7CjVPMC3s6fdNPtOEH49AeQkhF4CUfKI";
 
-
-
-
-
-
-
+ 
 
 			/*
 			$string  = " perl /var/www/html/schedue/digital/cutcard.pl ".$result["CardNO"]." ";
@@ -170,17 +162,8 @@
  			$token = "Ahlxzwfwdnv7CjVPMC3s6fdNPtOEH49AeQkhF4CUfKI";
 			*/
 
-
-
-
-
-
-
-
-
-
-
-
+ 
+ 
 
 		}
  
