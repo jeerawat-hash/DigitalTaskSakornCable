@@ -116,7 +116,14 @@
           
           $MSGT = "[ระบบ]\nย้ำสัญญาณการ์ดหมายเลข ".$Result["CardNO"]." สำเร็จแล้ว\nกรุณาทดสอบเปลี่ยนช่องใน 1-2 นาทีหากภาพไม่มาภายใน 30 นาทีกรุณาแจ้งงานบริการอีกครั้ง";
 
-          botpush($token,$channel,"U9c4cfc5da6f9aedeafd692b67b37a59e",$MSGT);
+          if(isset($Result["LineID"])){
+            
+            #botpush($token,$channel,"U9c4cfc5da6f9aedeafd692b67b37a59e",$MSGT);
+            botpush($token,$channel,$Result["LineID"],$MSGT);
+
+          }
+
+          
 
       }
 
