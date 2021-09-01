@@ -59,12 +59,13 @@
         
 
 
-      $Query =  mssql_query(" SELECT top 2 [ID]
+      $Query =  mssql_query(" SELECT top 2 a.[ID]
       ,[CardNO]
-      ,[Telephone]
+      ,a.[Telephone]
       ,[IsSuccess]
     ,[SyncDate]
-    FROM [LineSakorn].[dbo].[NoEntitlement] where IsSuccess = 0 and SyncDate = convert(date,getdate()) order by [ID] asc ",$a);
+	,[LineID]
+    FROM [LineSakorn].[dbo].[NoEntitlement] a left outer join LineSakorn.dbo.Customer b on a.Telephone = b.Telephone where a.IsSuccess = 0 and a.SyncDate = convert(date,getdate()) order by a.[ID] asc  ",$a);
 
 
 
