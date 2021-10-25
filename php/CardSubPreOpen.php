@@ -9,7 +9,7 @@
       $a = mssql_connect('mssqlcon', 'sa', 'Sakorn123');
       $b = mssql_connect('mssqlconcas', 'check', 'Sakorn123');
       
-      $query = mssql_query( " SELECT top 1  a.ID,b.Fname,[CardNo],[EmployeeID],Is_Open,Is_Success,( select top 1 MACAddress from SakornNewBusiness.dbo.CustomerCableType where CardID = [CardNo] and Suspend = 0) as Macaddress
+      $query = mssql_query( " SELECT top 1  a.ID,b.EmployeeName,[CardNo],[EmployeeID],Is_Open,Is_Success,( select top 1 MACAddress from SakornNewBusiness.dbo.CustomerCableType where CardID = [CardNo] and Suspend = 0) as Macaddress
     FROM [WebSakorn].[dbo].[SubPreOpenCard] a 
     join [WebSakorn].[dbo].[Employee] b on a.EmployeeID = b.ID  where Is_Success = 0 and Is_Open = 0 " ,$a );
   
@@ -37,7 +37,7 @@
 		
 	}
 	       
-      $message = "\nคุณ ".$result["Fname"]." เปิดสัญญาณชั่วคราวการ์ด\n".$typeServices."\nหมายเลข : ".$result["CardNo"];
+      $message = "\nคุณ ".$result["EmployeeName"]." เปิดสัญญาณชั่วคราวการ์ด\n".$typeServices."\nหมายเลข : ".$result["CardNo"];
 
       notify($message,"xwIy9YnB1ByZfiFz9dS4Pe82hLw9o5nRnQdmqnXlBBZ");
 
