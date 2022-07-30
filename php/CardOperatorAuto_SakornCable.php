@@ -21,7 +21,7 @@
 	 
 
 	//$query_str = mssql_query(" select top 3 'SakornCable' as DB,UserID,RowOrder,CardNO,IsOpenCard,IsUpdateCASAlready from SakornCable.dbo.CustomerCardLog where IsUpdateCASAlready = 0 order by RowOrder asc ",$a);
-	$query_str = mssql_query(" select  top 3 'SakornCable' as DB,UserID,RowOrder,CardNO,( select top 1 MACAddress from SakornCable.dbo.CustomerCableType where CardID = CardNO and Suspend = 0) as Macaddress
+	$query_str = mssql_query(" select  top 10 'SakornCable' as DB,UserID,RowOrder,CardNO,( select top 1 MACAddress from SakornCable.dbo.CustomerCableType where CardID = CardNO and Suspend = 0) as Macaddress
 	,IsOpenCard,IsUpdateCASAlready from SakornCable.dbo.CustomerCardLog where IsUpdateCASAlready = 0 order by RowOrder asc	 ",$a);
 
 	$message_notify = "ดำเนินการการ์ด กุญแจ SakornCable \n";
@@ -172,7 +172,7 @@
 
 		$message_notify .= $result["CardNO"]." ".$result["UserID"]." ".$status_auto."\n";
 
-		sleep(10);
+		sleep(2);
 	}
  
 
