@@ -4,9 +4,7 @@
     $a = mssql_connect('mssqlcon', 'sa', 'Sakorn123');
     $b = mssql_connect('mssqlconcas', 'check', 'Sakorn123');
 
-
-
-
+ 
 	$token = "";
  	
 	$CasCheck = mssql_fetch_array(mssql_query(" SELECT  [Cas_IsNormal]
