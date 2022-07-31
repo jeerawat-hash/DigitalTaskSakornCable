@@ -59,7 +59,7 @@
 
 				$string  = " perl /var/www/html/schedue/nex/opencard.pl ".$result["CardNO"]." ".$result["Macaddress"]." ";
 				$exe =  shell_exec( $string );
-				$status_auto = "NEX ต่อสัญญาณ\n".$ComPen;
+				$status_auto = "NEX ต่อสัญญาณ (ไม่สามารถดำเนินการได้)\n".$ComPen;
 				//$token = "xwIy9YnB1ByZfiFz9dS4Pe82hLw9o5nRnQdmqnXlBBZ";
   
 
@@ -123,7 +123,7 @@
  
 					$nex  = " perl /var/www/html/schedue/nex/cutcard.pl ".$result["CardNO"]." ".$result["Macaddress"]." ";
 					shell_exec( $nex );
-					$status_auto = "NEX ตัดสัญญาณ\n".$ComPen;
+					$status_auto = "NEX ตัดสัญญาณ (ไม่สามารถดำเนินการได้)\n".$ComPen;
  
 				}else{
 
