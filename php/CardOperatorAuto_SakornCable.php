@@ -59,7 +59,7 @@
 
 				$string  = " perl /var/www/html/schedue/nex/opencard.pl ".$result["CardNO"]." ".$result["Macaddress"]." ";
 				$exe =  shell_exec( $string );
-				$status_auto = "NEX ต่อ\n".$ComPen;
+				$status_auto = "NEX ต่อสัญญาณ\n".$ComPen;
 				//$token = "xwIy9YnB1ByZfiFz9dS4Pe82hLw9o5nRnQdmqnXlBBZ";
   
 
@@ -70,7 +70,7 @@
 				mssql_query(" delete from [CAS].[dbo].[OSDsBackup] where FilterData = '".$result["CardNO"]."' ",$b);
 				#$string  = " perl /var/www/html/schedue/digital/opencard.pl ".$result["CardNO"]." ";
 				#$exe =  shell_exec( $string );
-				$status_auto = "การ์ดสาคร ต่อ\n".$ComPen;
+				$status_auto = "การ์ดสาคร ต่อสัญญาณ\n".$ComPen;
 				//$token = "xwIy9YnB1ByZfiFz9dS4Pe82hLw9o5nRnQdmqnXlBBZ";
 
 
@@ -123,14 +123,14 @@
  
 					$nex  = " perl /var/www/html/schedue/nex/cutcard.pl ".$result["CardNO"]." ".$result["Macaddress"]." ";
 					shell_exec( $nex );
-					$status_auto = "NEX ตัด\n".$ComPen;
+					$status_auto = "NEX ตัดสัญญาณ\n".$ComPen;
  
 				}else{
 
 					//$string  = " perl /var/www/html/schedue/digital/cutcard.pl ".$result["CardNO"]." ";
 					mssql_query(" exec dbo.sp_Card_Stop '".$result["CardNO"]."',null ",$b);
 					mssql_query(" exec [dbo].[sp_Service_OSD]  0,'".$result["CardNO"]."',0,60,'yGJu6u5seTLn6ox2p7UwDApMxtTBbOMiuA9GFXnJt+I3K2hBPx6mS4Takp3lYXbPwiaEhCA7u94EyLUokJ4aoQQVRU+vEXIP','".date("Y-m-d")." 18:25:00',null ",$b);
-					$status_auto = "การ์ดสาคร ตัด\n".$ComPen;
+					$status_auto = "การ์ดสาคร ตัดสัญญาณ\n".$ComPen;
 
 				}
  
@@ -165,7 +165,7 @@
 
 		mssql_query(" update SakornCable.dbo.CustomerCardLog set IsUpdateCASAlready = 1 where CardNO = '".$result["CardNO"]."' ",$a);
 
-		$message_notify .= $result["CardNO"]." ".$result["UserID"]." ".$status_auto."\n";
+		$message_notify .= $result["CardNO"]." \nผู้ดำเนินการ ".$result["UserID"]." ".$status_auto."\n";
 
 		sleep(2);
 	}
