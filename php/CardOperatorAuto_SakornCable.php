@@ -24,7 +24,7 @@
 	$query_str = mssql_query(" select  top 10 'SakornCable' as DB,UserID,RowOrder,CardNO,( select top 1 MACAddress from SakornCable.dbo.CustomerCableType where CardID = CardNO and Suspend = 0) as Macaddress
 	,IsOpenCard,IsUpdateCASAlready from SakornCable.dbo.CustomerCardLog where IsUpdateCASAlready = 0 order by RowOrder asc	 ",$a);
 
-	$message_notify = "ดำเนินการการ์ด กุญแจ SakornCable \n";
+	$message_notify = "[ระบบประมวลการ์ด]\nกุญแจ SakornCable \n";
 
 
 	while ( $result = mssql_fetch_array($query_str) ) {
@@ -75,12 +75,7 @@
 
 
 			}
-			
-
-
-
-
-
+			 
 
 
             $token = "X3Ns5J0u2UhKkoirOm20GIvRyFlNtA3R7LJEizfhGQN";
@@ -180,7 +175,7 @@
 
 	if ( mssql_num_rows($query_str) != 0 ) {
  
-		#notify($message_notify,$token);
+		notify($message_notify,$token);
 
 	}
 	
