@@ -22,7 +22,13 @@ $url = "https://bb.inet-th.net/index.php/api/clients";
 
 $clientsArray = json_decode(getclient($url), true);
 
-print_r($clientsArray["rows"]);
+//print_r($clientsArray["rows"]);
+
+foreach ($clientsArray["rows"] as $INET) {
+    
+    echo $INET["id"].$INET["status"]."\n";
+
+}
 
 
 while ($result = mssql_fetch_array($query)) {
