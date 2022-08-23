@@ -10,13 +10,13 @@ $mysql = mysql_connect("172.168.0.22", "sak0rn", "sak0rncable");
 $connection = mssql_connect('mssqlcon', 'sa', 'Sakorn123');
 
 
-/*$query = mssql_query( "
+$query = mssql_query("
       select SeqNo,CustomerID,PPOE,INetID,SakornID,SakornIPID,
 (case when substring(PPOE,1,12)='sakorn_cable' then 'S'
 	  when substring(PPOE,1,13)='sakorn_public' then 'SP' else 'I' end)  as TypeNET
 from sakorncable.dbo.CustomerCableType where PPOE is not null and (SakornID is null and INetID is null and SakornIPID is null) and len(PPOE) > 12
 order by TypeNET asc 
-     " );*/
+     ");
 
 $url = "https://bb.inet-th.net/index.php/api/clients";
 
@@ -24,16 +24,10 @@ $clientsArray = json_decode(getclient($url), true);
 
 //print_r($clientsArray["rows"]);
 
-foreach ($clientsArray["rows"] as $INET) {
-    
-    echo $INET["id"].$INET["status"]."\n";
-
-}
-
 
 while ($result = mssql_fetch_array($query)) {
 
-/*if($result["TypeNET"] == "S"){
+    /*if($result["TypeNET"] == "S"){
 
             $resultA = mysql_fetch_array(mysql_query(" SELECT ID FROM radcheck where username = '".$result["PPOE"]."' "));
 
@@ -49,16 +43,16 @@ while ($result = mssql_fetch_array($query)) {
         }*/
 
 
-        if($result["TypeNET"] == "I"){
+    if ($result["TypeNET"] == "I") {
 
-            $url = "https://bb.inet-th.net/index.php/api/clients";
-
-            $clientsArray = json_decode(getclient($url),true);
-
-            mssql_query(" update sakorncable.dbo.CustomerCableType set INetID = '' where SeqNo = '".$result["SeqNo"]."' and CustomerID = '".$result["CustomerID"]."' ");
-            
+        foreach ($clientsArray["rows"] as $INET) {
+ 
+            if (trim($result["PPOE"]) == trim($INET["username"])) {
+                echo $INET["id"] . $INET["status"] . $INET["username"] . "\n";
+                mssql_query(" update sakorncable.dbo.CustomerCableType set INetID = '" . $INET["id"] . "' where SeqNo = '" . $result["SeqNo"] . "' and CustomerID = '" . $result["CustomerID"] . "' ");
+            }
         }
-            
+    }
 }
 
 
