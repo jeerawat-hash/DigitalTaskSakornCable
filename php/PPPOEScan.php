@@ -5,7 +5,7 @@
 
 
       ////////////////////////// begin cut out //////////////////////////////
-      $mysql = mysql_connect("172.168.0.24","sak0rn","sak0rncable");
+      $mysql = mysql_connect("172.168.0.22","sak0rn","sak0rncable");
 
       $connection = mssql_connect('mssqlcon', 'sa', 'Sakorn123');
 
@@ -22,22 +22,20 @@ order by TypeNET asc
 
       while ($result = mssql_fetch_array($query)) {
 
-        if($result["TypeNET"] == "S"){
+        /*if($result["TypeNET"] == "S"){
 
             $resultA = mysql_fetch_array(mysql_query(" SELECT ID FROM radcheck where username = '".$result["PPOE"]."' "));
 
             mssql_query("update sakorncable.dbo.CustomerCableType set SakornID = '".$resultA["ID"]."'  where SeqNo = '".$result["SeqNo"]."' and CustomerID = '".$result["CustomerID"]."' ");
 
-        }/*else
+        }else*/
         if($result["TypeNET"] == "SP"){
 
+            $resultA = mysql_fetch_array(mysql_query(" SELECT ID FROM radcheck where username = '".$result["PPOE"]."' "));
 
+            mssql_query("update sakorncable.dbo.CustomerCableType set SakornIPID = '".$resultA["ID"]."' where SeqNo = '".$result["SeqNo"]."' and CustomerID = '".$result["CustomerID"]."' ");
 
-
-
-            mssql_query("update sakorncable.dbo.CustomerCableType set SakornIPID = '' where SeqNo = '".$result["SeqNo"]."' and CustomerID = '".$result["CustomerID"]."' ");
-
-        }*/
+        }
         /*
         if($result["TypeNET"] == "I"){
 
