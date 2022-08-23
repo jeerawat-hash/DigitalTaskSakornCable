@@ -80,7 +80,11 @@ function Operation($url,$clientid,$status)
   curl_setopt($ch, CURLOPT_POSTFIELDS,
               "access_code=ZWaFcOV3yILx6DjmRWs029EzdYQgy0GdmoHA779tAK4vz8FqP55kOtivxounk11erUF7NsplanMKDivQVJL1pxIPwbkNEnBJSqCsfwXZcGZfXrSeTdezPt3CpUHYYR22fQjc6iGWwq8M&id=".$clientid."&status=".$status."&name=&surname=&mac_address&username&password&site_id=97&package_id=&type=");
   curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-
+    // SSL USE 
+    curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, 0);
+    curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, 0);
+    curl_setopt($ch, CURLOPT_POST, 1);
+    // SSL USE 
   $result = curl_exec($ch);
 
   curl_close ($ch);

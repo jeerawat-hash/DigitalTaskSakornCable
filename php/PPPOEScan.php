@@ -22,10 +22,10 @@ $url = "https://bb.inet-th.net/index.php/api/clients";
 
 $clientsArray = json_decode(getclient($url), true);
 
-print_r($clientsArray);
+print_r($clientsArray["rows"]);
 
 
-//while ($result = mssql_fetch_array($query)) {
+while ($result = mssql_fetch_array($query)) {
 
 /*if($result["TypeNET"] == "S"){
 
@@ -42,7 +42,7 @@ print_r($clientsArray);
 
         }*/
 
-/*
+
         if($result["TypeNET"] == "I"){
 
             $url = "https://bb.inet-th.net/index.php/api/clients";
@@ -52,8 +52,8 @@ print_r($clientsArray);
             mssql_query(" update sakorncable.dbo.CustomerCableType set INetID = '' where SeqNo = '".$result["SeqNo"]."' and CustomerID = '".$result["CustomerID"]."' ");
             
         }
-            */
-//}
+            
+}
 
 
 
@@ -98,6 +98,7 @@ function getclient($url)
 
     // Receive server response ...
     curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+
     // SSL USE 
     curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, 0);
     curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, 0);
