@@ -65,7 +65,7 @@
 
 
 				mssql_query(" exec dbo.sp_Card_Restart '".$result["CardNO"]."',null ",$b);
-				mssql_query(" delete from [CAS].[dbo].[OSDsBackup] where FilterData = '".$result["CardNO"]."' ",$b);
+				//mssql_query(" delete from [CAS].[dbo].[OSDsBackup] where FilterData = '".$result["CardNO"]."' ",$b);
 				#$string  = " perl /var/www/html/schedue/digital/opencard.pl ".$result["CardNO"]." ";
 				#$exe =  shell_exec( $string );
 				$status_auto = "การ์ดสาคร ต่อสัญญาณ\n".$ComPen;
@@ -127,7 +127,7 @@
 
 					//$string  = " perl /var/www/html/schedue/digital/cutcard.pl ".$result["CardNO"]." ";
 					mssql_query(" exec dbo.sp_Card_Stop '".$result["CardNO"]."',null ",$b);
-					mssql_query(" exec [dbo].[sp_Service_OSD]  0,'".$result["CardNO"]."',0,60,'yGJu6u5seTLn6ox2p7UwDApMxtTBbOMiuA9GFXnJt+I3K2hBPx6mS4Takp3lYXbPwiaEhCA7u94EyLUokJ4aoQQVRU+vEXIP','".date("Y-m-d")." 18:25:00',null ",$b);
+					//mssql_query(" exec [dbo].[sp_Service_OSD]  0,'".$result["CardNO"]."',0,60,'yGJu6u5seTLn6ox2p7UwDApMxtTBbOMiuA9GFXnJt+I3K2hBPx6mS4Takp3lYXbPwiaEhCA7u94EyLUokJ4aoQQVRU+vEXIP','".date("Y-m-d")." 18:25:00',null ",$b);
 					$status_auto = "การ์ดสาคร ตัดสัญญาณ\n".$ComPen;
 
 				}
